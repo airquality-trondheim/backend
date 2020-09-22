@@ -11,6 +11,10 @@ const userSchema = new Schema(
       trim: true,
       minlength: 3,
     },
+    points: {
+      type: Number,
+      required: false,
+    }
   },
   {
     timestamps: true,

@@ -40,7 +40,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.ATLAS_URI || 'mongodb://localhost:27017/test';
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -54,10 +54,12 @@ connection.once('open', () => {
 
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/airQuality');
+const leaderboardRouter = require('./routes/leaderboard');
 
 app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
+app.use('/leaderboard', leaderboardRouter);
 
 app.listen(port, hostname, () => {
-  console.log(`Server is running on https:\/\/${hostname}\/${port}`);
+  console.log(`Server is running on https:\/\/${hostname}:${port}`);
 });
