@@ -11,14 +11,15 @@ router.route('/add').get((req, res) => {
             response.data.forEach(element => {
                 const newAirData = new airData(element);
                 //airData.findByIdAndDelete(id='5f6203f6a8a6c12854ea3cd1')
-                //console.log('delete',airData.findById('5f6203f6a8a6c12854ea3cd1'))
-                console.log(element.id)
-                newAirData.save()
-                .then(() => console.log(element))
-                .catch((err) => res.status(400).json('Error: ' + err));
+                console.log('olddata', airData.findOne({ station: "Torvet" }));
+                console.log('new', element.id)
+                /*newAirData.save()
+                .then(() => console.log('hei'))
+                .catch((err) => res.status(400).json('Error: ' + err));*/
                 
             });
-        })    
+        })
+        .catch((err) => res.status(400).json('Error: ' + err));   
   });
 
 
