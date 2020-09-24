@@ -59,7 +59,7 @@ function buildResult(users, limit) {
     let result = {};
 
     result.rankings = [];
-    users.forEach((user) => result.rankings.push(JSON.stringify(user)));
+    users.forEach((user) => result.rankings.push(JSON.parse(JSON.stringify(user))));
 
     if (result.rankings.length > limit) {
         result.rankings.pop();
@@ -85,7 +85,7 @@ router.route('/top').get((req, res) => {
       .then((users) => res.status(200).json(buildResult(users, limit)))
       .catch((err) => res.status(400).json(err));
     } else {
-      let [nextPoints, nextId] = req.query.next ? req.query.next.split('_') : [0, null];
+      let [nextPoints, nextId] = req.query.next ? req.query.next.split('_') : [0, ""];
       nextPoints = nextPoints * 1;
 
       userModel.find({})
@@ -120,7 +120,12 @@ router.route('/top').get((req, res) => {
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/User'
+ *                 type: object
+ *                 properties:
+ *                   rank:
+ *                     type: number
+ *                   user:
+ *                     $ref: '#/components/schemas/User'
  *         "400":
  *           description: Error message
  *           content:
@@ -138,9 +143,10 @@ router.route('/user/:userId').get((req, res) => {
           .sort({points: 'desc', _id: 'desc'})
           .then((users) => {
             let result = {};
+
             users.forEach((user, index) => { 
                 if (req.params.userId == user._id) {
-                  result = {ranking:index+1, username:user.username, points:user.points};
+                  result = {ranking: index+1, user: user};
                 }
             });
           
@@ -149,9 +155,7 @@ router.route('/user/:userId').get((req, res) => {
           })
         })
         .catch((err) => res.status(400).json('Error: ' + err))
-      .catch((err) => res.status(400).json('Error: ' + err));
-
-      
+      .catch((err) => res.status(400).json('Error: ' + err));      
 });
 
 module.exports = router;

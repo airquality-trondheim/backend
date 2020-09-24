@@ -50,27 +50,34 @@ router.route('/users').get((req, res) => {
         },
         {
             username: "Fjodor",
-            points: 6
+            points: 5
         },
         {
             username: "Gine",
-            points: 7
+            points: 6
         },
         {
             username: "Hanne",
-            points: 9
+            points: 7
         },
         {
             username: "Ine",
-            points: 10
+            points: 8
         },
         {
             username: "Jonas",
-            points: 11
+            points: 9
+        },
+        {
+            username: "Karl",
+            points: 9
+        },
+        {
+            username: "Lone",
+            points: 10
         }
     ])
       .then(() => {
-          console.log("Populate")
           res.status(200).json('DB Populated');
         })
       .catch((err) => res.status(400).json('Error: ' + err));
