@@ -2,6 +2,30 @@
 const router = require('express').Router();
 const userModel = require('../models/user.model');
 
+/**
+ * @swagger
+ * path:
+ *   /populate/users:
+ *     get:
+ *       summary: Populate database with twelve (12) user entries with points.
+ *       tags: [Populate]
+ *       produces:
+ *         application/json
+ *       responses:
+ *         "200":
+ *           description: Populating process successful
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: string
+ *         "400":
+ *           description: Error message
+ *           content:
+ *             application/json:
+ *               schema: 
+ *                 type: string
+ */
+
 router.route('/users').get((req, res) => {
     userModel.insertMany([
         {
