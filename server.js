@@ -15,8 +15,8 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: "Sample Pet Store App",
-      description: "This is a sample server for a pet store.",
+      title: "Air Quality Monitoring Application API",
+      description: "This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.",
       termsOfService: "http://example.com/terms/",
       contact: {
         name: "API Support",
@@ -30,17 +30,23 @@ const swaggerOptions = {
       version: "1.0.1"
     },
   },
-  apis: ['./routes/*.js']
+  apis: ['./models/*.js', './routes/*.js']
 }
 
+
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, { explorer: true }));
+
+const simpleLogger = (req, res, next) => {
+  console.log(`${req.protocol}://${req.hostname}${req.path}`);
+  next();
+}
+app.use(simpleLogger);
 
 app.use(cors());
 app.use(express.json());
 
-
-const uri = process.env.ATLAS_URI;
+const uri = process.env.ATLAS_URI || 'mongodb://localhost:27017/test';
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -54,10 +60,14 @@ connection.once('open', () => {
 
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/airQuality');
+const leaderboardRouter = require('./routes/leaderboard');
+const populateRouter = require('./routes/populate');
 
 app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
+app.use('/leaderboard', leaderboardRouter);
+app.use('/populate', populateRouter);
 
 app.listen(port, hostname, () => {
-  console.log(`Server is running on https:\/\/${hostname}\/${port}`);
+  console.log(`Server is running on https:\/\/${hostname}:${port}`);
 });
