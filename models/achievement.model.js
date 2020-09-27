@@ -9,9 +9,11 @@ import { Schema, model } from 'mongoose';
  *       properties:
  *         _id:
  *           type: string
- *         username:
+ *         name:
  *           type: string
- *         points:
+ *         iconUrl:
+ *           type: string
+ *         qty:
  *           type: number
  *         __v:
  *           type: number
@@ -23,38 +25,39 @@ import { Schema, model } from 'mongoose';
  *           format: date-time
  *       example:
  *          _id: 6f6bc60a7ee72d1db47d4e55
- *          username: Alexander
- *          points: 24
+ *          name: 
+ *          iconUrl: https://cdn.myhost.com/images/
+ *          qty: 26
  *          __v: 0
  *          createdAt: 2020-09-23T22:02:50.221Z
  *          updatedAt: 2020-09-23T22:02:50.221Z
  */
 
-const userSchema = new Schema(
+const achievementSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
-      minlength: 3,
+      minLength: 1,
     },
-    points: {
+    iconUrl: {
+      type: String,
+      required: true,
+      minlength: 1,
+    },
+    description: {
+      type: String,
+      required: true,        
+    },
+    qty: {
       type: Number,
-      required: false,
-      index: true,
       default: 0,
-    },
-    achievementIds: {
-      type: [String],
-      default: [],
-    },
-  },
-  {
-    timestamps: true,
+    }
   }
 );
 
-const User = model('User', userSchema);
 
-export default User;
+const Achievement = model('Achievement', achievementSchema);
+
+export default Achievement;
