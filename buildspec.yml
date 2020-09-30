@@ -3,9 +3,6 @@ version: 0.2
 phases:
   install:
     commands:
-      # Move to the correct directory
-      - cd server
-
       # Install dependencies needed for running tests
       - npm install
 
