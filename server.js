@@ -48,6 +48,7 @@ app.use(express.json());
 
 const uri = process.env.ATLAS_URI || 'mongodb://localhost:27017/test';
 mongoose.connect(uri, {
+  useFindAndModify: false,
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -62,11 +63,13 @@ const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/airQuality');
 const leaderboardRouter = require('./routes/leaderboard');
 const populateRouter = require('./routes/populate');
+const achievementsRouter = require('./routes/achievements');
 
 app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
 app.use('/leaderboard', leaderboardRouter);
 app.use('/populate', populateRouter);
+app.use('/achievements', achievementsRouter);
 
 app.listen(port, hostname, () => {
   console.log(`Server is running on https:\/\/${hostname}:${port}`);

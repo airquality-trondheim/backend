@@ -1,5 +1,5 @@
 const router = require('express').Router();
-import userModel from '../models/user.model';
+const userModel = require('../models/user.model');
 
 /**
  * @swagger
@@ -61,7 +61,7 @@ function buildResult(users, limit) {
   result.rankings = [];
   users.forEach((user) => result.rankings.push(JSON.parse(JSON.stringify(user))));
 
-  if (result.rankings.length > limit) {
+  if (result.rankings.length > limit) { 
     result.rankings.pop();
     result.last = false;
 
@@ -75,27 +75,29 @@ function buildResult(users, limit) {
 }
 
 router.route('/top').get((req, res) => {
-  const limit = req.query.limit * 1;
+  const limit = req.query.limit ? req.query.limit * 1 : 10;
   
   if (!req.query.next) {
     userModel.find({})
-    .lean()
-    .sort({ points: 'desc', _id: 'desc' })
-    .limit(limit + 1)
-    .then((users) => res.status(200).json(buildResult(users, limit)))
-    .catch((err) => res.status(400).json(err));
-  } else {
+      .lean()
+      .sort({ points: 'desc', _id: 'desc' })
+      .limit(limit + 1) // Try to grab one extra user to check if there are more left.
+      .then((users) => res.status(200).json(buildResult(users, limit)))
+      .catch((err) => res.status(400).json(err));
+  
+    } else {
     let [nextPoints, nextId] = req.query.next ? req.query.next.split('_') : [0, ""];
     nextPoints = nextPoints * 1;
+    
     userModel.find({})
-    .lean()
-    .or([{ points: { $lt: nextPoints }}, { points: nextPoints, _id : { $lt: nextId } }])
-    .sort({ points: 'desc', _id: 'desc' })
-    .limit(limit + 1)
-    .then((users) => res.status(200).json(buildResult(users, limit)))
-    .catch((err) => res.status(400).json(err));
+      .lean()
+      .or([{ points: { $lt: nextPoints }}, { points: nextPoints, _id : { $lt: nextId } }])
+      .sort({ points: 'desc', _id: 'desc' })
+      .limit(limit + 1) // Try to grab one extra user to check if there are more left.
+      .then((users) => res.status(200).json(buildResult(users, limit)))
+      .catch((err) => res.status(400).json(err));
   }
-})
+});
 
 /**
  * @swagger
@@ -151,9 +153,9 @@ router.route('/user/:userId').get((req, res) => {
           if (result == {}) res.status(404).json(`${req.params.userId} not found!`);
           res.status(200).json(result);
         })
+        .catch((err) => res.status(400).json('Error: ' + err))
     })
-    .catch((err) => res.status(400).json('Error: ' + err))
-  .catch((err) => res.status(400).json('Error: ' + err));      
+    .catch((err) => res.status(400).json('Error: ' + err));      
 });
 
-export default router;
+module.exports = router;

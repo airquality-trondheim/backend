@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+// import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
 /**
  * @swagger
@@ -11,8 +12,13 @@ import { Schema, model } from 'mongoose';
  *           type: string
  *         username:
  *           type: string
+ *           required: true
  *         points:
  *           type: number
+ *         achievementIds:
+ *           type: array
+ *           items: 
+ *             type: string
  *         __v:
  *           type: number
  *         createdAt:
@@ -30,7 +36,7 @@ import { Schema, model } from 'mongoose';
  *          updatedAt: 2020-09-23T22:02:50.221Z
  */
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -55,6 +61,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;
