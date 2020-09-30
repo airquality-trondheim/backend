@@ -51,7 +51,8 @@ app.use(simpleLogger);
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+const uri =
+  'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
