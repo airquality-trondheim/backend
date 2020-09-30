@@ -7,6 +7,7 @@ const airDataSchema = new Schema(
     id: { 
       type:Number,
       required: true,
+      unique:true,
     },
     zone: { 
       type:String,
