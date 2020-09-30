@@ -51,7 +51,7 @@ app.use(simpleLogger);
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI || 'mongodb://localhost:27017/test';
+const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -84,7 +84,7 @@ function tick() {
       .deleteMany({ zone: 'Trondheim' })
       .then(() => console.log('Data deleted'));
     axios
-      .get('http://localhost:5000/airQuality/add')
+      .get(`http://${hostname}:${port}/airQuality/add`)
       .then((response) => console.log(response.data));
   }
 }
