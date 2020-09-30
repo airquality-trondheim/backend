@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const axios = require("axios");
 
 require('dotenv').config();
 
@@ -26,6 +27,23 @@ const apiRouter = require('./routes/airQuality');
 
 app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
+
+
+
+function tick() {
+    var mins = new Date().getMinutes();
+    var sec = new Date().getSeconds();
+    var mili = new Date().getMilliseconds();
+    if (mins == "00" && sec == "00" ) {
+       axios.get("http://localhost:5000/airQuality/delete")
+       .then(response => console.log(response.data)) 
+      axios.get("http://localhost:5000/airQuality/add")
+       .then(response => console.log(response.data)) 
+    }
+    // console.log('Tick ' + mins + ":"+ sec);
+  }
+  
+  setInterval(tick, 1000);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
