@@ -10,11 +10,6 @@ router.route('/').get((req, res) => {
       .catch((err) => res.status(400).json('Error: ' + err));
   });
   
-  router.route('/delete').get((req, res) => {
-    airData.deleteMany({zone: "Trondheim"})
-        .then(() => res.json('Data deleted'))
-        .catch((err) => res.status(400).json('Error: ' + err));
-  });
 
 router.route('/add').get((req, res) => {
     axios.get(url)
@@ -29,11 +24,6 @@ router.route('/add').get((req, res) => {
         })
         .catch((err) => res.status(400).json('Error: ' + err));   
   });
-
-
-
-
-
 
 
 module.exports = router;

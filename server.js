@@ -1,7 +1,9 @@
+const airData = require('./models/airData.model');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const axios = require("axios");
+
 
 require('dotenv').config();
 
@@ -34,11 +36,11 @@ function tick() {
     var mins = new Date().getMinutes();
     var sec = new Date().getSeconds();
     var mili = new Date().getMilliseconds();
-    if (mins == "00" && sec == "00" ) {
-       axios.get("http://localhost:5000/airQuality/delete")
-       .then(response => console.log(response.data)) 
+    if (mins == "37" && sec == "00" ) {
+      airData.deleteMany({zone: "Trondheim"})
+      .then(() => console.log('Data deleted'))
       axios.get("http://localhost:5000/airQuality/add")
-       .then(response => console.log(response.data)) 
+       .then(response => console.log(response.data))  
     }
     // console.log('Tick ' + mins + ":"+ sec);
   }
