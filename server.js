@@ -54,6 +54,7 @@ app.use(express.json());
 const uri =
   'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
 mongoose.connect(uri, {
+  useFindAndModify: false,
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -68,11 +69,13 @@ const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/airQuality');
 const leaderboardRouter = require('./routes/leaderboard');
 const populateRouter = require('./routes/populate');
+const achievementsRouter = require('./routes/achievements');
 
 app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
 app.use('/leaderboard', leaderboardRouter);
 app.use('/populate', populateRouter);
+app.use('/achievements', achievementsRouter);
 
 const airData = require('./models/airData.model');
 
