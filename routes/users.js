@@ -1,35 +1,43 @@
 const router = require('express').Router();
 const User = require('../models/user.model');
 
-// Example Doc Only, See: https://swagger.io/docs/specification/adding-examples/
-
-/**
- * @swagger
- * /login:
- *   post:
- *     description: Login to the application
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: username
- *         description: Username to use for login.
- *         in: formData
- *         required: true
- *         type: string
- *       - name: password
- *         description: User's password.
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: login
- */
-
 router.route('/').get((req, res) => {
   User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * @swagger
+ * path:
+ *   /users/count/:
+ *     get:
+ *       summary: Get the total count of all user documents.
+ *       tags: [Users]
+ *       produces:
+ *         application/json
+ *       responses:
+ *         "200":
+ *           description: Count successful
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   count:
+ *                     type: number
+ *         "400":
+ *           descrption: Count unsuccessful
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: string
+ */
+
+router.route('/count').get((req, res) => {
+  User.countDocuments({})
+    .then((count) => res.status(200).json({ result: count }))
+    .catch((err) => res.status(400).json(err));
 });
 
 router.route('/add').post((req, res) => {

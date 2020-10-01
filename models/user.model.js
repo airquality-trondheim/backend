@@ -1,6 +1,5 @@
+// import { Schema, model } from 'mongoose';
 const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
 
 /**
  * @swagger
@@ -13,8 +12,13 @@ const Schema = mongoose.Schema;
  *           type: string
  *         username:
  *           type: string
+ *           required: true
  *         points:
  *           type: number
+ *         achievementIds:
+ *           type: array
+ *           items: 
+ *             type: string
  *         __v:
  *           type: number
  *         createdAt:
@@ -32,7 +36,7 @@ const Schema = mongoose.Schema;
  *          updatedAt: 2020-09-23T22:02:50.221Z
  */
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -45,7 +49,12 @@ const userSchema = new Schema(
       type: Number,
       required: false,
       index: true,
-    }
+      default: 0,
+    },
+    achievementIds: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
