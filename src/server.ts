@@ -42,8 +42,8 @@ app.use(
   swaggerUi.setup(swaggerDocs, { explorer: true })
 );
 
-const simpleLogger = (req, res, next) => {
-  console.log(`${req.protocol}://${req.hostname}${req.path}`);
+const simpleLogger = (req: any, res: any, next: any) => {
+  console.log(`${req.method} ${req.protocol}://${req.hostname}${req.baseUrl}${req._parsedUrl.href}`);
   next();
 };
 app.use(simpleLogger);
@@ -51,8 +51,10 @@ app.use(simpleLogger);
 app.use(cors());
 app.use(express.json());
 
-const uri =
-  'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
+
+const uri = process.env.CONNECTION_STRING ? process.env.CONNECTION_STRING : 'mongodb://localhost:27017/test';
+//  'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
+
 mongoose.connect(uri, {
   useFindAndModify: false,
   useNewUrlParser: true,
@@ -77,6 +79,7 @@ app.use('/leaderboard', leaderboardRouter);
 app.use('/populate', populateRouter);
 app.use('/achievements', achievementsRouter);
 
+/*
 const airData = require('./models/airData.model');
 
 function tick() {
@@ -93,7 +96,7 @@ function tick() {
   }
 }
 
-setInterval(tick, 1000);
+ setInterval(tick, 1000); */
 
 app.listen(port, hostname, () => {
   console.log(`Server is running on https:\/\/${hostname}:${port}`);

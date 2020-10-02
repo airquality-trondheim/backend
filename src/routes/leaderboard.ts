@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const userModel = require('../models/user.model');
+import { IUser, User } from '../models/user.model';
+import { Request, Response } from 'express';
 
 /**
  * @swagger
@@ -55,8 +56,14 @@ const userModel = require('../models/user.model');
  *                 type: string
  */
 
-function buildResult(users, limit) {
-  let result = {};
+interface IResult {
+  rankings: IUser[];
+  last: boolean;
+  next?: string;
+}
+
+function buildResult(users: Pick<IUser, "_id" | "username" | "points" | "achievementIds">[], limit: number) {
+  let result = {} as IResult;
 
   result.rankings = [];
   users.forEach((user) => result.rankings.push(JSON.parse(JSON.stringify(user))));
@@ -74,22 +81,30 @@ function buildResult(users, limit) {
   return result;
 }
 
-router.route('/top').get((req, res) => {
-  const limit = req.query.limit ? req.query.limit * 1 : 10;
+interface topParams {
+  limit: number;
+  next?: string;
+}
+
+router.route('/top').get(async (req: Request, res: Response) => {
+  const limit: number = req.query.limit ? parseInt(req.query.limit as string) : 10;
   
   if (!req.query.next) {
-    userModel.find({})
+    User.find({})
       .lean()
       .sort({ points: 'desc', _id: 'desc' })
       .limit(limit + 1) // Try to grab one extra user to check if there are more left.
       .then((users) => res.status(200).json(buildResult(users, limit)))
       .catch((err) => res.status(400).json(err));
   
-    } else {
-    let [nextPoints, nextId] = req.query.next ? req.query.next.split('_') : [0, ""];
-    nextPoints = nextPoints * 1;
+  } else {
+    console.log(req.query);
+    const next = req.query.next as string;
+    const splitNext = next.split('_');
+    const nextPoints = parseInt(splitNext[0]);
+    const nextId = splitNext[1];
     
-    userModel.find({})
+    User.find({})
       .lean()
       .or([{ points: { $lt: nextPoints }}, { points: nextPoints, _id : { $lt: nextId } }])
       .sort({ points: 'desc', _id: 'desc' })
@@ -97,6 +112,8 @@ router.route('/top').get((req, res) => {
       .then((users) => res.status(200).json(buildResult(users, limit)))
       .catch((err) => res.status(400).json(err));
   }
+
+  // res.send(204).json('Nothing found!')
 });
 
 /**
@@ -135,10 +152,10 @@ router.route('/top').get((req, res) => {
  *                 type: string
  */
 
-router.route('/user/:userId').get((req, res) => {
-  userModel.findOne({ _id: req.params.userId })
+router.route('/user/:userId').get((req: Request, res: Response) => {
+  User.findOne({ _id: req.params.userId })
     .then((user) => {
-      userModel.find({})
+      User.find({})
         .lean()
         .or([{ points: { $gt: user.points }}, { points: user.points, _id: { $gt: user._id }}, { points: user.points, _id: user._id }])
         .sort({points: 'desc', _id: 'desc'})
@@ -153,9 +170,9 @@ router.route('/user/:userId').get((req, res) => {
           if (result == {}) res.status(404).json(`${req.params.userId} not found!`);
           res.status(200).json(result);
         })
-        .catch((err) => res.status(400).json('Error: ' + err))
+        .catch((err) => res.status(400).json(err))
     })
-    .catch((err) => res.status(400).json('Error: ' + err));      
+    .catch((err) => res.status(400).json(err));      
 });
 
 module.exports = router;

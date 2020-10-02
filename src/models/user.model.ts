@@ -1,5 +1,4 @@
-// import { Schema, model } from 'mongoose';
-const mongoose = require('mongoose');
+import { Schema, Document, model } from 'mongoose';
 
 /**
  * @swagger
@@ -36,31 +35,21 @@ const mongoose = require('mongoose');
  *          updatedAt: 2020-09-23T22:02:50.221Z
  */
 
-const userSchema = new mongoose.Schema(
+export interface IUser extends Document {
+  username: string,
+  points: number,
+  achievementIds: string[]
+}
+
+const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      minlength: 3,
-    },
-    points: {
-      type: Number,
-      required: false,
-      index: true,
-      default: 0,
-    },
-    achievementIds: {
-      type: [String],
-      default: [],
-    },
+    username:         { type: String, required: true, unique: true, trim: true, minlength: 3}
+    , points:         { type: Number, required: false, index: true, default: 0}
+    , achievementIds: { type: [String], default: []}
   },
   {
     timestamps: true,
   }
 );
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+export const User = model<IUser>('User', userSchema);

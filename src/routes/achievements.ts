@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const userModel = require('../models/user.model');
-const achievementModel = require('../models/achievement.model'); 
+import { User } from '../models/user.model';
+import { Achievement } from '../models/achievement.model'; 
+import { Request, Response } from 'express';
 
 /**
  * @swagger
@@ -73,15 +74,15 @@ const achievementModel = require('../models/achievement.model');
  */
 
 router.route('/')
-.get((req, res) => {
-  achievementModel.find({})
+.get((req: Request, res: Response) => {
+  Achievement.find({})
     .lean()
     .then((achievements) => res.status(200).json({achievements: achievements}))
     .catch((err) => res.status(400).json(err));
 })
-.post((req, res) => {
+.post((req: Request, res: Response) => {
   try {
-    const newAchievement = new achievementModel({
+    const newAchievement = new Achievement({
       id: req.body.id,
       name: req.body.name,
       iconUrl: req.body.iconUrl,
@@ -172,29 +173,29 @@ router.route('/')
 */
 
 router.route('/:achievementId')
-.delete((req, res) => {
-  achievementModel.findOneAndDelete({ _id: req.params.achievementId })
+.delete((req: Request, res: Response) => {
+  Achievement.findOneAndDelete({ _id: req.params.achievementId })
     .then(() => res.status(200).json(`Achievement with _id ${req.params.achievementId} successfully deleted.`))
     .catch((err) => res.send(400).json(err));
 })
-.get((req, res) => {
-  achievementModel.findById({ _id: req.params.achievementId })
-    .then((user) => res.status(200).json(user))
+.get((req: Request, res: Response) => {
+  Achievement.findById({ _id: req.params.achievementId })
+    .then((achievement) => res.status(200).json(achievement))
     .catch((err) => res.status(400).json(err));
 })
-.patch((req, res) => {
+.patch((req: Request, res: Response) => {
   if (!req.body) res.status(400).json('No request body found.');
-  achievementModel.findOneAndUpdate({ _id: req.params.achievementId }, req.body, { new: true })
+  Achievement.findOneAndUpdate({ _id: req.params.achievementId }, req.body, { new: true })
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).json(err));
 });
 
 // Kan sikkert fjernes.
-router.route('user/:userId').get((req, res) => {
-  userModel.findById(req.params.userId)
+router.route('user/:userId').get((req: Request, res: Response) => {
+  User.findById(req.params.userId)
     .lean()
     .then((user => {
-      achievementModel.find({})
+      Achievement.find({})
         .lean()
         .where('id')
         .in(user.achievementIds)

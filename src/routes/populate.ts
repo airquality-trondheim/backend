@@ -1,7 +1,8 @@
 
 const router = require('express').Router();
-const userModel = require('../models/user.model');
-const achievementModel = require('../models/achievement.model');
+import { User } from '../models/user.model';
+import { Achievement } from '../models/achievement.model';
+import { Request, Response } from 'express';
 
 /**
  * @swagger
@@ -26,13 +27,13 @@ const achievementModel = require('../models/achievement.model');
  *               schema: 
  *                 type: string
  */
- 
-router.route('/users').get((req, res) => {
-  userModel.insertMany([
+
+router.route('/users').get(async (req: Request, res: Response) => {
+  User.insertMany([
     { username: 'Anders',   points: 1,  achievementIds: ['1', '2', '4'] },
     { username: 'Bjarne',   points: 2,  achievementIds: ['1', '2', '4'] },
     { username: 'Charles',  points: 3,  achievementIds: ['1', '2', '4'] },
-    { username: 'Dolf',     points: 4,  achievementIds: ['1', '2', '4', '3'] },
+    { username: 'Dolf',     points: 4,  achievementIds: ['1', '2', '3', '4'] },
     { username: 'Eline',    points: 5,  achievementIds: ['1', '2', '3'] },
     { username: 'Fjodor',   points: 5,  achievementIds: ['1', '3'] },
     { username: 'Gine',     points: 6,  achievementIds: ['1', '2', '3', '4'] },
@@ -70,8 +71,8 @@ router.route('/users').get((req, res) => {
  *                 type: string
  */
 
-router.route('/achievements').get((req, res) => {
-  achievementModel.insertMany([
+router.route('/achievements').get(async (req: Request, res: Response) => {
+  Achievement.insertMany([
     { id: '1', name: 'Jomfruturen',        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg', description: 'Fullfør din første tur.',                             qty: 12},
     { id: '2', name: 'Hele uken lang',     iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg', description: 'Fullfør en tur hver dag i én uke.',                   qty: 6},
     { id: '3', name: 'Tre om dagen',       iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg', description: 'Fullfør tre turer på én dag.',                        qty: 5},
@@ -108,11 +109,11 @@ router.route('/achievements').get((req, res) => {
  *                 type: string
  */
 
-router.route('/clear-all').get((req, res) => {
+router.route('/clear-all').get(async (req: Request, res: Response) => {
   try {
-    userModel.collection.drop()
-      .then(achievementModel.collection.drop()
-        .then(res.status(200).json('User documents and achievement documents successfully dropped.')));
+    await User.collection.drop();
+    await Achievement.collection.drop();
+    res.status(200).json('User documents and achievement documents successfully dropped.');
   } catch (err) {
     res.status(500).json('Deletion attempt unsuccessful. An internal server error has occured.');
   }

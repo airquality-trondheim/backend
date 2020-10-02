@@ -1,5 +1,4 @@
-//import { Schema, model } from 'mongoose';
-const mongoose = require('mongoose');
+import { Schema, Document, model } from 'mongoose';
 
 /**
  * @swagger
@@ -43,41 +42,25 @@ const mongoose = require('mongoose');
  *          updatedAt: 2020-09-23T22:02:50.221Z
  */
 
-const achievementSchema = new mongoose.Schema(
-  {    
-    id: { // TODO: Remove
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      minLength: 1,
-    },
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-      minLength: 1,
-    },
-    iconUrl: {
-      type: String,
-      required: true,
-      minlength: 1,
-    },
-    description: {
-      type: String,
-      required: true,        
-    },
-    qty: {
-      type: Number,
-      default: 0,
-    }
+export interface IAchievement extends Document {
+  id: string;
+  name: string;
+  iconUrl: string;
+  description: string;
+  qty: number;
+}
+
+const achievementSchema = new Schema(
+  {
+    id:             { type: String, required: true, unique: true, trim: true, minLength: 1, } // TODO: Remove
+    , name:         { type: String, required: true, trim: true, minLength: 1, }
+    , iconUrl:      { type: String, required: true, minlength: 1, }
+    , description:  { type: String, required: true, }
+    , qty:          { type: Number, default: 0, }
   },
   {
     timestamps: true,
   }
 );
 
-
-const Achievement = mongoose.model('Achievement', achievementSchema);
-
-module.exports = Achievement;
+export const Achievement = model<IAchievement>('Achievement', achievementSchema);
