@@ -20,8 +20,7 @@ router.route('/').get((req, res) => {
 // Authentication middleware
 
 router.use((req, res, next) => {
-  // let accessTokenFromClient = req.headers.accesstoken;
-  const accessTokenFromClient = req.body.token;
+  let accessTokenFromClient = req.headers.accesstoken;
 
   if (!accessTokenFromClient)
     return res.status(401).send('Access Token missing from header');
