@@ -1,11 +1,40 @@
 const router = require('express').Router();
 const User = require('../models/user.model');
+const CognitoExpress = require('cognito-express');
+
+const cognitoExpress = new CognitoExpress({
+  region: 'eu-central-1',
+  cognitoUserPoolId: 'eu-central-1_Qt8vhCEWi',
+  tokenUse: 'access',
+  tokenExpiration: 3600000, // In ms (3600000 => 1 hour)
+});
+
+// Routes that don't need authentication
 
 router.route('/').get((req, res) => {
   User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json('Error: ' + err));
 });
+
+// Authentication middleware
+
+router.use((req, res, next) => {
+  let accessTokenFromClient = req.headers.accesstoken;
+
+  if (!accessTokenFromClient)
+    return res.status(401).send('Access Token missing from header');
+
+  cognitoExpress.validate(accessTokenFromClient, (err, response) => {
+    if (err) return res.status(401).send(err);
+
+    // Access token authenticated, proceed.
+    res.locals.user = response;
+    next();
+  });
+});
+
+// Routes below this uses the authentication middleware
 
 /**
  * @swagger
@@ -72,6 +101,19 @@ router.route('/:id').put((req, res) => {
 router.route('/:id').delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then(() => res.json('User deleted.'))
+    .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:id/settings').put((req, res) => {
+  User.findByIdAndUpdate(req.params.id)
+    .then((user) => {
+      user.pushNotification = req.body.pushNotification;
+
+      user
+        .save()
+        .then(() => res.json('User updated.'))
+        .catch((err) => res.status(400).json('Error: ' + err));
+    })
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 

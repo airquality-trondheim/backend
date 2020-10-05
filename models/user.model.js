@@ -17,8 +17,10 @@ const mongoose = require('mongoose');
  *           type: number
  *         achievementIds:
  *           type: array
- *           items: 
+ *           items:
  *             type: string
+ *         pushNotification:
+ *           type: boolean
  *         __v:
  *           type: number
  *         createdAt:
@@ -54,6 +56,10 @@ const userSchema = new mongoose.Schema(
     achievementIds: {
       type: [String],
       default: [],
+    },
+    pushNotification: {
+      type: Boolean,
+      default: false,
     },
   },
   {
