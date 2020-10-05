@@ -1,0 +1,20 @@
+path:
+  /populate/clear-all:
+    get:
+      summary: Drop all User documents and Achievement documents.
+      tags: [Populate]
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Dropping of documents successful
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Error message
+          content:
+            application/json:
+              schema: 
+                type: string

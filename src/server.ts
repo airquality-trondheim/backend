@@ -11,6 +11,8 @@ const app = express();
 const port = process.env.PORT || 5002;
 const hostname = process.env.HOST || '127.0.0.1';
 
+
+
 // See: https://swagger.io/specification/#openapi-object
 const swaggerOptions = {
   definition: {
@@ -18,7 +20,7 @@ const swaggerOptions = {
     info: {
       title: 'Air Quality Monitoring Application API',
       description:
-        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.',
+        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.' + __filename,
       termsOfService: 'http://example.com/terms/',
       contact: {
         name: 'API Support',
@@ -32,8 +34,10 @@ const swaggerOptions = {
       version: '1.0.1',
     },
   },
-  apis: ['./models/*.ts', './routes/*.ts'],
+  apis: ['./docs/models/*.yaml', './docs/routes/**/*.yaml'],
 };
+
+console.log(process.cwd() + " " + __dirname)
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(

@@ -4,30 +4,6 @@ import { User } from '../models/user.model';
 import { Achievement } from '../models/achievement.model';
 import { Request, Response } from 'express';
 
-/**
- * @swagger
- * path:
- *   /populate/users:
- *     get:
- *       summary: Populate database with twelve (12) user entries with points.
- *       tags: [Populate]
- *       produces:
- *         application/json
- *       responses:
- *         "200":
- *           description: Populating process successful
- *           content:
- *             application/json:
- *               schema:
- *                 type: string
- *         "400":
- *           description: Error message
- *           content:
- *             application/json:
- *               schema: 
- *                 type: string
- */
-
 router.route('/users').get(async (req: Request, res: Response) => {
   User.insertMany([
     { username: 'Anders',   points: 1,  achievementIds: ['1', '2', '4'] },
@@ -47,30 +23,6 @@ router.route('/users').get(async (req: Request, res: Response) => {
     .catch((err) => res.status(400).json(err));
 });
 
-/**
- * @swagger
- * path:
- *   /populate/achievements:
- *     get:
- *       summary: Populate database with seven (7) achievements with set quantities.
- *       tags: [Populate]
- *       produces:
- *         application/json
- *       responses:
- *         "200":
- *           description: Populating process successful
- *           content:
- *             application/json:
- *               schema:
- *                 type: string
- *         "400":
- *           description: Error message
- *           content:
- *             application/json:
- *               schema: 
- *                 type: string
- */
-
 router.route('/achievements').get(async (req: Request, res: Response) => {
   Achievement.insertMany([
     { id: '1', name: 'Jomfruturen',        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg', description: 'Fullfør din første tur.',                             qty: 12},
@@ -84,30 +36,6 @@ router.route('/achievements').get(async (req: Request, res: Response) => {
     .then(() => res.status(200).json('Achievement Collection Populated'))
     .catch((err) => res.status(400).json(err));
 });
-
-/**
- * @swagger
- * path:
- *   /populate/clear-all:
- *     get:
- *       summary: Drop all User documents and Achievement documents.
- *       tags: [Populate]
- *       produces:
- *         application/json
- *       responses:
- *         "200":
- *           description: Dropping of documents successful
- *           content:
- *             application/json:
- *               schema:
- *                 type: string
- *         "500":
- *           description: Error message
- *           content:
- *             application/json:
- *               schema: 
- *                 type: string
- */
 
 router.route('/clear-all').get(async (req: Request, res: Response) => {
   try {

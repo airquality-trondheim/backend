@@ -37,33 +37,6 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 // Routes below this uses the authentication middleware
 
-/**
- * @swagger
- * path:
- *   /users/count/:
- *     get:
- *       summary: Get the total count of all user documents.
- *       tags: [Users]
- *       produces:
- *         application/json
- *       responses:
- *         "200":
- *           description: Count successful
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   count:
- *                     type: number
- *         "400":
- *           descrption: Count unsuccessful
- *           content:
- *             application/json:
- *               schema:
- *                 type: string
- */
-
 router.route('/count').get((req: Request, res: Response) => {
   User.countDocuments({})
     .then((count) => res.status(200).json({ result: count }))

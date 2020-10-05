@@ -2,60 +2,6 @@ const router = require('express').Router();
 import { IUser, User } from '../models/user.model';
 import { Request, Response } from 'express';
 
-/**
- * @swagger
- * path:
- *   /leaderboard/top:
- *     get:
- *       summary: Returns a ordered list of users of a specified size beginning at a specified cursor placement.
- *       tags: [Leaderboard]
- *       produces:
- *         - application/json
- *       parameters:
- *         - in: query
- *           name: next
- *           schema:
- *             type: string
- *           description: A cursor string consisting of a point score and a user id separated by an underscore.
- *         - in: query
- *           name: limit
- *           schema: 
- *             type: integer
- *           required: true
- *           description: The number of items to return.
- *       responses:
- *         "200":
- *           description: Contains a page of users, whether there are more users, and iff there are more users; a cursor string to use in the subsequent query. 
- *           content:
- *             application/json:
- *               schema:
- *                 oneOf:
- *                   - type: object
- *                     properties:
- *                       rankings:
- *                         type: array
- *                         items:
- *                           $ref: '#/components/schemas/User'
- *                       last:
- *                         type: boolean
- *                       next:
- *                         type: string
- *                   - type: object
- *                     properties:
- *                       rankings:
- *                         type: array
- *                         items:
- *                           $ref: '#/components/schemas/User'
- *                       last:
- *                         type: boolean
- *         "400":
- *           description: Error message
- *           content:
- *             application/json:
- *               schema: 
- *                 type: string
- */
-
 interface IResult {
   rankings: IUser[];
   last: boolean;
@@ -115,42 +61,6 @@ router.route('/top').get(async (req: Request, res: Response) => {
 
   // res.send(204).json('Nothing found!')
 });
-
-/**
- * @swagger
- * path:
- *   /leaderboard/{userId}:
- *     get:
- *       summary: Get the leaderboard ranking of a given user
- *       tags: [Leaderboard]
- *       produces:
- *         - application/json
- *       parameters:
- *         - in: path
- *           name: userId
- *           schema:
- *             type: string
- *           required: true
- *           description: Id of the user
- *       responses:
- *         "200":
- *           description: A leaderboard position object
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   rank:
- *                     type: number
- *                   user:
- *                     $ref: '#/components/schemas/User'
- *         "400":
- *           description: Error message
- *           content:
- *             application/json:
- *               schema: 
- *                 type: string
- */
 
 router.route('/user/:userId').get((req: Request, res: Response) => {
   User.findOne({ _id: req.params.userId })
