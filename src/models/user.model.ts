@@ -40,7 +40,8 @@ import { Schema, Document, model } from 'mongoose';
 export interface IUser extends Document {
   username: string,
   points: number,
-  achievementIds: string[]
+  achievementIds: string[],
+  pushNotification: boolean
 }
 
 const userSchema = new Schema(

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.model';
 const CognitoExpress = require('cognito-express');
 
@@ -20,13 +20,13 @@ router.route('/').get((req: Request, res: Response) => {
 
 // Authentication middleware
 
-router.use((req, res, next) => {
+router.use((req: Request, res: Response, next: NextFunction) => {
   let accessTokenFromClient = req.headers.accesstoken;
 
   if (!accessTokenFromClient)
     return res.status(401).send('Access Token missing from header');
 
-  cognitoExpress.validate(accessTokenFromClient, (err, response) => {
+  cognitoExpress.validate(accessTokenFromClient, (err: any, response: any) => {
     if (err) return res.status(401).send(err);
 
     // Access token authenticated, proceed.
@@ -98,16 +98,9 @@ router.route('/:id').delete((req: Request, res: Response) => {
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id/settings').put((req, res) => {
-  User.findByIdAndUpdate(req.params.id)
-    .then((user) => {
-      user.pushNotification = req.body.pushNotification;
-
-      user
-        .save()
-        .then(() => res.json('User updated.'))
-        .catch((err) => res.status(400).json('Error: ' + err));
-    })
+router.route('/:id/settings').put((req: Request, res: Response) => {
+  User.findByIdAndUpdate({ pushNotification: req.body.pushNotification }, req.body, { new: true })
+    .then(() => res.json('User updated.'))
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
