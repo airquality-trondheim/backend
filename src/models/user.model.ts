@@ -16,8 +16,10 @@ import { Schema, Document, model } from 'mongoose';
  *           type: number
  *         achievementIds:
  *           type: array
- *           items: 
+ *           items:
  *             type: string
+ *         pushNotification:
+ *           type: boolean
  *         __v:
  *           type: number
  *         createdAt:
@@ -43,9 +45,10 @@ export interface IUser extends Document {
 
 const userSchema = new Schema(
   {
-    username:         { type: String, required: true, unique: true, trim: true, minlength: 3}
-    , points:         { type: Number, required: false, index: true, default: 0}
-    , achievementIds: { type: [String], default: []}
+    username:           { type: String, required: true, unique: true, trim: true, minlength: 3 }
+    , points:           { type: Number, required: false, index: true, default: 0 }
+    , achievementIds:   { type: [String], default: [] }
+    , pushNotification: { type: Boolean, default: false }
   },
   {
     timestamps: true,
