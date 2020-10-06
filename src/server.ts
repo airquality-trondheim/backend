@@ -71,13 +71,13 @@ connection.once('open', () => {
   console.log(`Mongo database connection established successfully`);
 });
 
-//const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/airQuality');
 const leaderboardRouter = require('./routes/leaderboard');
 const populateRouter = require('./routes/populate');
 const achievementsRouter = require('./routes/achievements');
 
-//app.use('/users', usersRouter);
+app.use('/users', usersRouter);
 app.use('/airQuality', apiRouter);
 app.use('/leaderboard', leaderboardRouter);
 app.use('/populate', populateRouter);
