@@ -44,7 +44,6 @@ router.route('/top').get(async (req: Request, res: Response) => {
       .catch((err) => res.status(400).json(err));
   
   } else {
-    console.log(req.query);
     const next = req.query.next as string;
     const splitNext = next.split('_');
     const nextPoints = parseInt(splitNext[0]);
@@ -58,8 +57,6 @@ router.route('/top').get(async (req: Request, res: Response) => {
       .then((users) => res.status(200).json(buildResult(users, limit)))
       .catch((err) => res.status(400).json(err));
   }
-
-  // res.send(204).json('Nothing found!')
 });
 
 router.route('/user/:userId').get((req: Request, res: Response) => {
