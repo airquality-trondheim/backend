@@ -1,19 +1,21 @@
 import { Schema, Document, model } from 'mongoose';
 
 export interface IAchievement extends Document {
-  id: string;
   name: string;
+  category: string;
   iconUrl: string;
   description: string;
+  value: string;
   qty: number;
 }
 
 const achievementSchema = new Schema(
   {
-    id:             { type: String, required: true, unique: true, trim: true, minLength: 1, } // TODO: Remove
-    , name:         { type: String, required: true, trim: true, minLength: 1, }
-    , iconUrl:      { type: String, required: true, minlength: 1, }
+    name:           { type: String, required: true, trim: true, minLength: 1, }
+    , category:     { type: String, required: true, }
+    , iconUrl:      { type: String, required: true, }
     , description:  { type: String, required: true, }
+    , value:        { type: String, required: true, }
     , qty:          { type: Number, default: 0, }
   },
   {

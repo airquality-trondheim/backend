@@ -11,8 +11,6 @@ const app = express();
 const port = process.env.PORT || 5002;
 const hostname = process.env.HOST || '127.0.0.1';
 
-
-
 // See: https://swagger.io/specification/#openapi-object
 const swaggerOptions = {
   definition: {
@@ -36,8 +34,6 @@ const swaggerOptions = {
   },
   apis: ['./docs/models/*.yaml', './docs/routes/**/*.yaml'],
 };
-
-console.log(process.cwd() + " " + __dirname)
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(
@@ -71,17 +67,8 @@ connection.once('open', () => {
   console.log(`Mongo database connection established successfully`);
 });
 
-const usersRouter = require('./routes/users');
-const apiRouter = require('./routes/airQuality');
-const leaderboardRouter = require('./routes/leaderboard');
-const populateRouter = require('./routes/populate');
-const achievementsRouter = require('./routes/achievements');
-
-app.use('/users', usersRouter);
-app.use('/airQuality', apiRouter);
-app.use('/leaderboard', leaderboardRouter);
-app.use('/populate', populateRouter);
-app.use('/achievements', achievementsRouter);
+import router from './routes';
+router(app);
 
 /*
 const airData = require('./models/airData.model');
