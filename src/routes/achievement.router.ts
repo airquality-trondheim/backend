@@ -12,4 +12,4 @@ AchievementRouter
   .route('/:achievementId')
   .delete(AchievementController.deleteAchievement)
   .get(AchievementController.getAchievement)
-  .patch(AchievementController.updateAchievement);
+  .put(AchievementController.updateAchievement);

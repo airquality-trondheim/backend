@@ -20,9 +20,9 @@ UserRouter
 UserRouter
   .route('/:userId')
   .get(UserController.getUser)
-  .patch(UserController.updateUser)
+  .put(UserController.updateUser)
   .delete(UserController.deleteUser);
 
 UserRouter
   .route('/:userId/settings')
-  .post(UserController.updateUserSettings);
+  .put(UserController.updateUserSettings);
