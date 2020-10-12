@@ -14,8 +14,11 @@ components:
           type: array
           items:
             type: string
-        pushNotification:
-          type: boolean
+        settings:
+          type: Object
+          properties:
+            pushNotifications: 
+              type: boolean
         __v:
           type: number
         createdAt:

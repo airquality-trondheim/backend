@@ -1,0 +1,16 @@
+components:
+  schemas:
+    SessionResult:
+      type: Object
+      properties:
+        elapsedTime:
+          type: string
+          format: date-time
+        travelDistance:
+          type: number
+        sumPoints:
+          type: number
+        distancePoints:
+          type: number
+        safeZonePoints:
+          type: number

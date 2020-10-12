@@ -5,9 +5,6 @@ components:
       properties:
         _id:
           type: string
-        id:
-          type: string
-          description: Id to be removed, only for mock data, _id is random
         name:
           type: string
           required: true

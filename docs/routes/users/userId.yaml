@@ -1,8 +1,8 @@
 path:
-  /achievement/{achievementId}:
+  /user/{userId}:
     delete:
-      summary: Delete an achievement document
-      tags: [Achievements]
+      summary: Delete a user document
+      tags: [Users]
       produces:
         - application/json
       responses:
@@ -19,17 +19,17 @@ path:
               schema:
                 type: string
     get:
-      summary: Get an achievement document
-      tags: [Achievements]
+      summary: Get a user document
+      tags: [Users]
       produces:
         - application/json
       responses:
         "200":
-          description: The requested achievement document.
+          description: The requested user document.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Achievement"
+                $ref: "#/components/schemas/User"
         "400":
           description: Error message
           content:
@@ -37,31 +37,23 @@ path:
               schema: 
                 type: string       
     put:
-      summary: Modify an achievement document
-      tags: [Achievements]
+      summary: Modify a user document
+      tags: [Users]
       requestBody:
-        description: Name, icon URL, and description for a new achievement.
+        description: A full user document to replace the old one.
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                iconUrl:
-                  type: string
-                description:
-                  type: string
+            $ref: "#/components/schemas/User"
       produces:
         - application/json
       responses:
         "200":
-          description: The created achievement document.
+          description: The modified user document.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Achievement"
+                $ref: "#/components/schemas/User"
         "400":
           description: Error message
           content:

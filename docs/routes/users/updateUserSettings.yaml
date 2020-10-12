@@ -1,20 +1,17 @@
 path:
-  /user/count/:
-    get:
-      summary: Get the total count of all user documents.
+  /user/{userId}/settings:
+    put:
+      summary: Update the user's settings.
       tags: [Users]
       produces:
-        - application/json
+        application/json
       responses:
         "200":
-          description: Count successful
+          description: Returns the updated user document
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  count:
-                    type: number
+                $ref: '#/components/schemas/User'
         "400":
           descrption: Count unsuccessful
           content:
