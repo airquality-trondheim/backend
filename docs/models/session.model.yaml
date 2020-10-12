@@ -1,0 +1,32 @@
+components:
+  schemas:
+    Session:
+      type: object
+      properties:
+        userId:
+          type: string
+          required: true
+        sessionType:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        stopTime:
+          type: string
+          format: date-time
+        waypoints:
+          type: array
+          items:
+            type: Object
+            properties:
+              longitude: 
+                type: number
+                format: float
+              latitude:
+                type: number
+                format: float
+              timestamp:
+                type: string
+                format: date-time
+              pollutionLevel:
+                type: string

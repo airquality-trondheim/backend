@@ -1,10 +1,10 @@
 path:
-  /users/count/:
+  /user/count/:
     get:
       summary: Get the total count of all user documents.
       tags: [Users]
       produces:
-        application/json
+        - application/json
       responses:
         "200":
           description: Count successful

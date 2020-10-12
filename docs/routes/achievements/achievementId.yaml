@@ -1,5 +1,5 @@
 path:
-  /achievements/{achievementId}:
+  /achievement/{achievementId}:
     delete:
       summary: Delete an achievement document
       tags: [Achievements]
