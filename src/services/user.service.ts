@@ -51,6 +51,25 @@ export async function deleteUser(userId: string) {
   }
 }
 
+export async function addUserPoints(userId: string, points: number) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { $inc: { points: points }}, { new: true });
+    return updatedUser;
+  
+  } catch (error) {
+    throw Error('Could not update user points. \n' + error);
+  }
+}
+
+export async function getUserPoints(userId: string) {
+  try {
+    const user = await User.findById({ _id: userId });
+    return user.points;
+  } catch (error) {
+    throw Error('Could not get user points. \n' + error);
+  }
+}
+
 export async function updateUserSettings(userId: string, newSettings: any) {
   try {
     const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { settings: newSettings }, { new: true }).lean();

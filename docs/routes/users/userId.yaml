@@ -1,8 +1,15 @@
 path:
-  /user/{userId}:
+  /users/{userId}:
     delete:
       summary: Delete a user document
       tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user to delete
       produces:
         - application/json
       responses:
@@ -21,6 +28,13 @@ path:
     get:
       summary: Get a user document
       tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user to get
       produces:
         - application/json
       responses:
@@ -39,6 +53,13 @@ path:
     put:
       summary: Modify a user document
       tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user to update
       requestBody:
         description: A full user document to replace the old one.
         required: true

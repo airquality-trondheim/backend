@@ -76,8 +76,20 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
   }
 }
 
-export async function updateUserSettings(req: Request, res: Response, next: NextFunction) {
+export async function getUserPoints(req: Request, res: Response, next: NextFunction) {
   // validator
+  const userId = req.params.userId as string;
+
+  try {
+    const userPoints = await UserService.getUserPoints(userId);
+    return res.status(200).json({ points: userPoints });
+  } catch (error) {
+    return res.status(503).json(error);
+  }
+}
+
+export async function updateUserSettings(req: Request, res: Response, next: NextFunction) {
+  // validators
   const userId = req.params.userId as string;
   const newSettings = req.body as IUserSettings;
 

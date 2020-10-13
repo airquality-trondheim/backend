@@ -1,8 +1,15 @@
 path:
-  /achievement/{achievementId}:
+  /achievements/{achievementId}:
     delete:
       summary: Delete an achievement document
       tags: [Achievements]
+      parameters:
+        - in: path
+          name: achievementId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the achievement document.
       produces:
         - application/json
       responses:
@@ -21,6 +28,13 @@ path:
     get:
       summary: Get an achievement document
       tags: [Achievements]
+      parameters:
+        - in: path
+          name: achievementId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the achievement document.
       produces:
         - application/json
       responses:
@@ -39,6 +53,13 @@ path:
     put:
       summary: Modify an achievement document
       tags: [Achievements]
+      parameters:
+        - in: path
+          name: achievementId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the achievement document.
       requestBody:
         description: Name, icon URL, and description for a new achievement.
         required: true

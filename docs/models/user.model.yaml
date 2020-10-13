@@ -10,12 +10,18 @@ components:
           required: true
         points:
           type: number
-        achievementIds:
+        achievements:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              timestampEarned:
+                type: string 
+                format: date-time
+              achievementId:
+                type: string
         settings:
-          type: Object
+          type: object
           properties:
             pushNotifications: 
               type: boolean
@@ -27,10 +33,3 @@ components:
         updatedAt:
           type: string
           format: date-time
-      example:
-        _id: 6f6bc60a7ee72d1db47d4e55
-        username: Alexander
-        points: 24
-        __v: 0
-        createdAt: 2020-09-23T22:02:50.221Z
-        updatedAt: 2020-09-23T22:02:50.221Z
