@@ -12,7 +12,7 @@ phases:
   build:
     commands:
       - npm run build-ts
-      - mv -v src/server.ts .
+      - cp -v dist/server.js .
 
 artifacts:
   type: zip
