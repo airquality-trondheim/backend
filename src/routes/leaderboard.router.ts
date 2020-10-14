@@ -4,9 +4,9 @@ import * as LeaderboardController from '../controllers/leaderboard.controller';
 export const LeaderboardRouter: Router = require('express').Router();
 
 LeaderboardRouter
-  .route('/top')
+  .route('/users/top')
   .get(LeaderboardController.getUserLeaderboard);
 
 LeaderboardRouter
-  .route('/user/:userId')
+  .route('/users/:userId')
   .get(LeaderboardController.getUserLeaderboardPosition);

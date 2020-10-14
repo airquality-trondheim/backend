@@ -8,6 +8,9 @@ components:
         name:
           type: string
           required: true
+        category:
+          type: string
+          required: true
         iconUrl:
           type: string
           required: true
@@ -24,12 +27,3 @@ components:
         updatedAt:
           type: string
           format: date-time
-      example:
-        _id: 6f6bc60a7ee72d1db47d4e55 
-        id: Bare random tall for enkel mock data
-        name: Til Andromedagalaksen
-        iconUrl: https://cdn.myhost.com/images/
-        qty: 26
-        __v: 0
-        createdAt: 2020-09-23T22:02:50.221Z
-        updatedAt: 2020-09-23T22:02:50.221Z

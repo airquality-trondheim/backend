@@ -1,15 +1,22 @@
 path:
-  /session/{userId}:
+  /sessions/users/{userId}:
     post:
       summary: Register session 
-      tags: [Sessions]      
+      tags: [Sessions]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user registering session
       requestBody:
         description: Session data.
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Session'
+              $ref: '#/components/schemas/SessionData'
       produces:
         application/json
       responses:
@@ -18,7 +25,12 @@ path:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionResult'
+                type: object
+                properties:
+                  sessionResult: 
+                    $ref: '#/components/schemas/SessionResult'
+                  updatedUser:
+                    $ref: '#/components/schemas/User'
         "400":
           descrption: Session registration failed.
           content:

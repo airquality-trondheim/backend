@@ -1,6 +1,6 @@
 components:
   schemas:
-    Session:
+    SessionData:
       type: object
       properties:
         userId:
@@ -30,5 +30,3 @@ components:
                 format: date-time
               pollutionLevel:
                 type: string
-        sessionResult:
-          $ref: '#/components/schemas/SessionResult'

@@ -1,6 +1,7 @@
 path:
   /populate/achievements:
     get:
+      deprecated: true
       summary: Populate database with seven (7) achievements with set quantities.
       tags: [Populate]
       produces:

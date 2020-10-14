@@ -1,5 +1,5 @@
 path:
-  /achievement/:
+  /achievements/:
     get:
       summary: Get all achievement data
       tags: [Achievements]

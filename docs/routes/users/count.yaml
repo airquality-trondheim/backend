@@ -1,5 +1,5 @@
 path:
-  /user/count/:
+  /users/count:
     get:
       summary: Get the total count of all user documents.
       tags: [Users]

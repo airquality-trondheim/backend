@@ -1,7 +1,7 @@
 path:
-  /users/{userId}/settings:
-    put:
-      summary: Update the user's settings.
+  /users/{userId}/points:
+    get:
+      summary: Retrieve the user's points.
       tags: [Users]
       parameters:
         - in: path
@@ -14,11 +14,14 @@ path:
         application/json
       responses:
         "200":
-          description: Returns the updated user document
+          description: Returns the user's points.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: object
+                properties:
+                  points:
+                    type: number
         "400":
           descrption: Count unsuccessful
           content:

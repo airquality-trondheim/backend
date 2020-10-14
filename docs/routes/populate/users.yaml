@@ -1,6 +1,7 @@
 path:
   /populate/users:
     get:
+      deprecated: true
       summary: Populate database with twelve (12) user entries with points.
       tags: [Populate]
       produces:

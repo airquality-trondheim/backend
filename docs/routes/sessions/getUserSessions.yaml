@@ -1,26 +1,26 @@
 path:
-  /users/{userId}/settings:
-    put:
-      summary: Update the user's settings.
-      tags: [Users]
+  /sessions/users/{userId}:
+    get:
+      summary: Register session 
+      tags: [Sessions]
       parameters:
         - in: path
           name: userId
           schema:
             type: string
           required: true
-          description: Object ID of the user
+          description: Object ID of the user retrieving its sessions
       produces:
         application/json
       responses:
         "200":
-          description: Returns the updated user document
+          description: Retrieves all sessions belonging to the user.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Session'
         "400":
-          descrption: Count unsuccessful
+          descrption: Could not retrieve sessions.
           content:
             application/json:
               schema:

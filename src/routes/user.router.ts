@@ -24,5 +24,9 @@ UserRouter
   .delete(UserController.deleteUser);
 
 UserRouter
+  .route('/:userId/points')
+  .get(UserController.getUserPoints);
+
+UserRouter
   .route('/:userId/settings')
   .put(UserController.updateUserSettings);
