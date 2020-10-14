@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as LeaderboardController from '../controllers/leaderboard.controller';
 
-export const LeaderboardRouter: Router = require('express').Router();
+export const LeaderboardRouter: Router = Router();
 
 LeaderboardRouter
   .route('/users/top')
