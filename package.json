@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
-    "dev": "concurrently \"nodemon dist/server.js\" \"tsc -w\""
+    "dev": "concurrently \"nodemon dist/server.js\" \"tsc -w\"",
+    "build-ts": "tsc"
   },
   "keywords": [],
   "author": "",
