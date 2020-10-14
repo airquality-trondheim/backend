@@ -13,9 +13,7 @@ export async function addLevel(levelData: ILevel) {
 
 export async function getLevel(levelNo: number) {
   try {
-    console.log("HERE")
-    const level = await Level.findOne({ levelNo: levelNo });// as ILevel;
-    console.log(level);
+    const level = await Level.findOne({ levelNo: levelNo });
     return level;
 
   } catch (error) {
