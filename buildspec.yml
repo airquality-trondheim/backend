@@ -12,6 +12,7 @@ phases:
   build:
     commands:
       - npm run build-ts
+      - mv -v src/server.ts .
 
 artifacts:
   type: zip
