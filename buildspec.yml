@@ -17,7 +17,7 @@ phases:
 artifacts:
   type: zip
   files:
-    - server.ts
+    - server.js
     - package.json
     - package-lock.json
     - dist/**/*
