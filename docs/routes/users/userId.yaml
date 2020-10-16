@@ -65,7 +65,8 @@ path:
         required: true
         content:
           application/json:
-            $ref: "#/components/schemas/User"
+            schema:
+              $ref: "#/components/schemas/User"
       produces:
         - application/json
       responses:
