@@ -1,0 +1,17 @@
+components:
+  schemas:
+    SessionResult:
+      type: object
+      properties:
+        millisecondsElapsed:
+          type: number
+        metersTraveled:
+          type: number
+        avgKmph:
+          type: number
+        distancePoints:
+          type: number
+        safeZonePoints:
+          type: number
+        sumPoints:
+          type: number

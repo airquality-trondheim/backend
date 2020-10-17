@@ -18,7 +18,7 @@ const swaggerOptions = {
     info: {
       title: 'Air Quality Monitoring Application API',
       description:
-        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.',
+        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.' + __filename,
       termsOfService: 'http://example.com/terms/',
       contact: {
         name: 'API Support',
@@ -32,7 +32,7 @@ const swaggerOptions = {
       version: '1.0.1',
     },
   },
-  apis: ['./models/*.js', './routes/*.js'],
+  apis: ['./docs/models/*.yaml', './docs/routes/**/*.yaml'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -42,8 +42,8 @@ app.use(
   swaggerUi.setup(swaggerDocs, { explorer: true })
 );
 
-const simpleLogger = (req, res, next) => {
-  console.log(`${req.protocol}://${req.hostname}${req.path}`);
+const simpleLogger = (req: any, res: any, next: any) => {
+  console.log(`${req.method} ${req.protocol}://${req.hostname}${req.baseUrl}${req._parsedUrl.href}`);
   next();
 };
 app.use(simpleLogger);
@@ -51,8 +51,10 @@ app.use(simpleLogger);
 app.use(cors());
 app.use(express.json());
 
-const uri =
-  'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
+
+const uri = process.env.CONNECTION_STRING ? process.env.CONNECTION_STRING : 'mongodb://localhost:27017/test';
+//  'mongodb+srv://dbUser:tdt4290-gruppe11@cluster0.19tcd.mongodb.net/airData?retryWrites=true&w=majority';
+
 mongoose.connect(uri, {
   useFindAndModify: false,
   useNewUrlParser: true,
@@ -65,18 +67,10 @@ connection.once('open', () => {
   console.log(`Mongo database connection established successfully`);
 });
 
-const usersRouter = require('./routes/users');
-const apiRouter = require('./routes/airQuality');
-const leaderboardRouter = require('./routes/leaderboard');
-const populateRouter = require('./routes/populate');
-const achievementsRouter = require('./routes/achievements');
+import router from './routes';
+router(app);
 
-app.use('/users', usersRouter);
-app.use('/airQuality', apiRouter);
-app.use('/leaderboard', leaderboardRouter);
-app.use('/populate', populateRouter);
-app.use('/achievements', achievementsRouter);
-
+/*
 const airData = require('./models/airData.model');
 
 function tick() {
@@ -93,7 +87,7 @@ function tick() {
   }
 }
 
-setInterval(tick, 1000);
+ setInterval(tick, 1000); */
 
 app.listen(port, hostname, () => {
   console.log(`Server is running on https:\/\/${hostname}:${port}`);

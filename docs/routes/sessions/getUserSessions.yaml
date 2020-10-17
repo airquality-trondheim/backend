@@ -1,0 +1,27 @@
+path:
+  /sessions/users/{userId}:
+    get:
+      summary: Register session 
+      tags: [Sessions]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user retrieving its sessions
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Retrieves all sessions belonging to the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "400":
+          descrption: Could not retrieve sessions.
+          content:
+            application/json:
+              schema:
+                type: string

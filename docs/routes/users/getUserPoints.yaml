@@ -1,0 +1,30 @@
+path:
+  /users/{userId}/points:
+    get:
+      summary: Retrieve the user's points.
+      tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Returns the user's points.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  points:
+                    type: number
+        "400":
+          descrption: Count unsuccessful
+          content:
+            application/json:
+              schema:
+                type: string

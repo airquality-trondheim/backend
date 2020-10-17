@@ -1,0 +1,29 @@
+components:
+  schemas:
+    Achievement:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+          required: true
+        category:
+          type: string
+          required: true
+        iconUrl:
+          type: string
+          required: true
+        description: 
+          type: string
+          required: true
+        qty:
+          type: number
+        __v:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

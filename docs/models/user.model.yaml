@@ -1,0 +1,37 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+          required: true
+        points:
+          type: number
+        level:
+          type: number
+        achievements:
+          type: array
+          items:
+            type: object
+            properties:
+              timestampEarned:
+                type: string 
+                format: date-time
+              achievementId:
+                type: string
+        settings:
+          type: object
+          properties:
+            pushNotifications: 
+              type: boolean
+        __v:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

@@ -1,0 +1,23 @@
+path:
+  /users/count:
+    get:
+      summary: Get the total count of all user documents.
+      tags: [Users]
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Count successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+        "400":
+          descrption: Count unsuccessful
+          content:
+            application/json:
+              schema:
+                type: string
