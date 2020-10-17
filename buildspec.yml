@@ -17,4 +17,8 @@ artifacts:
   type: zip
   files:
     - '**/*'
+    - '../docs/**/*'
+    - '../package.json'
+    - '../package-lock.json'
+    - '../node_modules/**/*'
   base-directory: 'dist'
