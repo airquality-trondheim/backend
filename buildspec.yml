@@ -12,14 +12,9 @@ phases:
   build:
     commands:
       - npm run build-ts
-      - cp -v dist/server.js .
 
 artifacts:
   type: zip
   files:
-    - server.js
-    - package.json
-    - package-lock.json
-    - dist/**/*
-    - docs/**/*
-    - node_modules/**/*
+    - '**/*'
+  base-directory: 'dist'
