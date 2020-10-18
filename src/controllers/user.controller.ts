@@ -83,6 +83,7 @@ export async function getUserPoints(req: Request, res: Response, next: NextFunct
   try {
     const userPoints = await UserService.getUserPoints(userId);
     return res.status(200).json({ points: userPoints });
+    
   } catch (error) {
     return res.status(503).json(error);
   }

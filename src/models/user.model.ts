@@ -1,7 +1,7 @@
 import { Schema, Document, model, Types } from 'mongoose';
 
-export interface IUserAchievement extends Types.Subdocument {
-  timestampEarned: Date;
+export interface IUserAchievement {
+  timestampEarned: string;
   achievementId: string;
 }
 
@@ -26,8 +26,8 @@ const userSchema = new Schema(
     , level:            { type: Number, default: 0 }
     
     , achievements:   [{
-      timestampEarned:  { type: Date, required: true}
-      , achievementId:  { type: Types.ObjectId, required: true }
+      timestampEarned:  { type: String, required: true}
+      , achievementId:  { type: String, required: true }
     }]
     
     , settings:         {

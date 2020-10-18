@@ -6,6 +6,7 @@ export interface IAchievement extends Document {
   iconUrl: string;
   description: string;
   value: string;
+  pointValue: number;
   qty: number;
 }
 
@@ -16,6 +17,7 @@ const achievementSchema = new Schema(
     , iconUrl:      { type: String, required: true, }
     , description:  { type: String, required: true, }
     , value:        { type: String, required: true, }
+    , pointValue:   { type: Number, required: true, }
     , qty:          { type: Number, default: 0, }
   },
   {
