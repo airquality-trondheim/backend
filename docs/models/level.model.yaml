@@ -1,0 +1,17 @@
+components:
+  schemas:
+    Level:
+      type: object
+      properties:
+        levelNo:
+          type: number
+        name:
+          type: string
+        iconUrl:
+          type: string
+        pointThreshold:
+          type: number
+        pointsRequired:
+          type: number
+        qty:
+          type: number

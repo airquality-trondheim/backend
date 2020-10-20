@@ -8,3 +8,17 @@ phases:
 
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
+
+  build:
+    commands:
+      - npm run build-ts
+
+artifacts:
+  type: zip
+  files:
+    - '**/*'
+    - '../docs/**/*'
+    - '../package.json'
+    - '../package-lock.json'
+    - '../node_modules/**/*'
+  base-directory: 'dist'
