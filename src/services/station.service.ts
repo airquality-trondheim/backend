@@ -2,7 +2,7 @@ import { IStation, Station } from '../models/station.model';
 
 export async function getStations() {
   try {
-    const stations = await Station.find({});
+    const stations = await Station.find({}) as IStation[];
     return stations;
 
   } catch (error) {
