@@ -5,7 +5,6 @@ export interface ILocation {
   longitude: number;
   latitude: number;
   areacode: string;
-  areaclass: string;
 }
 
 export interface IMeasure {
@@ -26,16 +25,16 @@ export interface IVariables {
 export interface IForecastUnit {
   from: string;
   to: string;
-  variables: [IVariables];
+  variables: IVariables[];
 }
 
 export interface IForecast {
   location: ILocation;
   reftime: string;
-  data: [IForecastUnit]
+  data: IForecastUnit[]
 }
 
-interface IForecastDoc extends Document {}
+interface IForecastDoc extends IForecast, Document {}
 
 const forecastSchema = new Schema(
   {
@@ -44,7 +43,6 @@ const forecastSchema = new Schema(
       , longitude:            { type: Number, required: true }
       , latitude:             { type: Number, required: true }
       , areacode:             { type: String, required: true }
-      , areaclass:            { type: String, required: true}
     }
     , reftime:                { type: String, required: true }
     , data:                   [{
