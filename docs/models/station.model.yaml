@@ -1,0 +1,47 @@
+components:
+  schemas:
+    Station:
+      type: object
+      properties: 
+        name:
+          type: string
+          required: true
+        eoi: 
+          type: string
+          required: true
+        height:
+          type: number
+          required: true
+        longitude:
+          type: number
+          required: true
+        latitude:
+          type: number
+          required: true
+        grunnkrets:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+            areacode:
+              type: string
+              required: true
+        delområde:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+            areacode:
+              type: string
+              required: true
+        kommune:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+            areacode:
+              type: string
+              required: true

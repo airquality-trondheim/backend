@@ -18,9 +18,11 @@ path:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Session'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
         "400":
-          descrption: Could not retrieve sessions.
+          description: Could not retrieve sessions.
           content:
             application/json:
               schema:
