@@ -1,0 +1,22 @@
+path:
+  /areas/:
+    get:
+      summary: Get areas (in Trondheim)
+      tags: [Areas]
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Retrieve all area documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+        "503":
+          description: Could not retrieve all area documents
+          content:
+            application/json:
+              schema:
+                type: string

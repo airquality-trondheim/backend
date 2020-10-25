@@ -1,0 +1,22 @@
+path:
+  /stations/:
+    get:
+      summary: Get stations (for Trondheim)
+      tags: [Stations]
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Retrieved all station documents.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+        "503":
+          description: Could not retrieve station documents
+          content:
+            application/json:
+              schema:
+                type: string
