@@ -7,6 +7,8 @@ StationRouter
   .route('/')
   .get(StationController.getStations)
 
-  StationRouter
-  .route('/refresh')  
-  .post(StationController.refreshStations);
+// Update stations should be an authorized function, e.g. admin/sys
+
+StationRouter
+  .route('/update')  
+  .post(StationController.updateStations);

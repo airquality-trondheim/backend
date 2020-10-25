@@ -25,7 +25,7 @@ export interface IVariables {
 export interface IForecastUnit {
   from: string;
   to: string;
-  variables: IVariables[];
+  variables: IVariables;
 }
 
 export interface IForecast {
@@ -48,7 +48,7 @@ const forecastSchema = new Schema(
     , data:                   [{
       from:                   { type: String, required: true }
       , to:                   { type: String, required: true }
-      , variables:            [{
+      , variables:            {
         AQI:                  {
           value:              { type: Number, required: true }
           , unit:             { type: String, required: true }
@@ -77,7 +77,7 @@ const forecastSchema = new Schema(
           value:              { type: Number, required: true }
           , unit:             { type: String, required: true }
         }
-      }]
+      }
     }]
   }
 );
