@@ -1,0 +1,22 @@
+path:
+  /areas/update/:
+    get:
+      summary: Updates the area documents (for Trondheim)
+      tags: [Areas]
+      produces:
+        application/json
+      responses:
+        "201":
+          description: Returns the updated area documents (for Trondheim)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+        "503":
+          description: Could not update area documents (for Trondheim)
+          content:
+            application/json:
+              schema:
+                type: string

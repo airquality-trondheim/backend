@@ -17,7 +17,7 @@ export interface IWaypoint extends Types.Subdocument {
 }
 
 export interface ISession extends Document {
-  userId: Types.ObjectId;
+  userId: string;
   sessionType: string;
   startTime: Date;
   stopTime: Date;

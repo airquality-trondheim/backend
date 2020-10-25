@@ -72,9 +72,28 @@ export async function deleteAchievement(achievementId: string) {
  * @returns {IAchievement} The specified achievement document.
  * @throws Will throw an error if the achievement document could not be retrieved.
  */
-export async function getAchievement(achievementId: string): Promise<IAchievement> {
+export async function getAchievementById(achievementId: string): Promise<IAchievement> {
   try {
-    const achievement = await Achievement.findById({ _id: achievementId })
+    const achievement = await Achievement.findById({ _id: achievementId });
+    return achievement;
+
+  } catch (error) {
+    throw Error('Could not get Achievement document. \n' + error);
+  }
+}
+
+/**
+ * Retrieve an achievement document by name.
+ * 
+ * @async
+ * @function getAchievement
+ * @param {string} achievementId - The document object id of the achievement document.
+ * @returns {IAchievement} The specified achievement document.
+ * @throws Will throw an error if the achievement document could not be retrieved.
+ */
+export async function getAchievementByName(achievementName: string): Promise<IAchievement> {
+  try {
+    const achievement = await Achievement.findOne({ name: achievementName });
     return achievement;
 
   } catch (error) {

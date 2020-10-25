@@ -1,7 +1,7 @@
 path:
   /sessions/users/{userId}:
     get:
-      summary: Register session 
+      summary: Get sessions
       tags: [Sessions]
       parameters:
         - in: path

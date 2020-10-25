@@ -43,7 +43,7 @@ export async function getAchievement(req: Request, res: Response, next: NextFunc
   const achievementId = req.params.achievementId as string;
 
   try {
-    const achievement = await AchievementService.getAchievement(achievementId);
+    const achievement = await AchievementService.getAchievementById(achievementId);
     return res.status(200).json({ achievement: achievement });
   
   } catch (error) {
