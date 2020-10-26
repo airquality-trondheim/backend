@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { IStation } from '../models/station.model';
 import * as StationService from '../services/station.service';
 import axios from 'axios';
+import { Urls } from '../constants';
 
 export async function getStations(req: Request, res: Response, next: NextFunction) {
   try {
@@ -13,9 +14,9 @@ export async function getStations(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function refreshStations(req: Request, res: Response, next: NextFunction) {
+export async function updateStations(req: Request, res: Response, next: NextFunction) {
   try {
-    const stationUrl = 'https://api.met.no/weatherapi/airqualityforecast/0.1/stations';
+    const stationUrl = `${Urls.apiBaseUrl}/stations`;
     const axiosResponse = await axios.get<IStation[]>(stationUrl);
 
     const trondheimAreacode = '5001'
@@ -27,8 +28,8 @@ export async function refreshStations(req: Request, res: Response, next: NextFun
       }
     });
 
-    const refreshedStations = await StationService.refreshStations(trondheimStations);
-    return res.status(201).json(refreshedStations);
+    const updatedStations = await StationService.updateStations(trondheimStations);
+    return res.status(201).json(updatedStations);
 
   } catch (error) {
     return res.status(503).json({ message: error });

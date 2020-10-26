@@ -1,0 +1,20 @@
+path:
+  /air-quality/forecast/update:
+    get:
+      summary: Update forecast data for all areas and stations
+      tags: [Air Quality]
+      produces:
+        application/json
+      responses:
+        "201":
+          description: Air quality forecasts updated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        "503":
+          description: Could not update stations
+          content:
+            application/json:
+              schema:
+                type: string
