@@ -1,5 +1,5 @@
 path:
-  /stations/refresh/:
+  /stations/update/:
     get:
       summary: Update stations (for Trondheim)
       tags: [Stations]

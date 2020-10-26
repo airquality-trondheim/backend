@@ -1,0 +1,29 @@
+path:
+  /air-quality/forecast/{areacode}:
+    get:
+      summary: Get air quality forecast from available station or area
+      tags: [Air Quality]
+      parameters:
+        - in: path
+          name: areacode
+          schema:
+            type: string
+          required: true
+          description: Areacode of interest
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Retrieves air quality forecast for given area.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AirQualityForecast'
+        "400":
+          description: Could not retrieve air quality forecast.
+          content:
+            application/json:
+              schema:
+                type: string

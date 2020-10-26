@@ -60,7 +60,6 @@ export async function getUserLeaderboard(req: Request, res: Response, next: Next
 export async function getUserLeaderboardPosition(req: Request, res: Response, next: NextFunction) {
   // validator
   const userId = req.params.userId as string;
-  console.log("FUCK");
   try {
     const users = await LeaderboardService.getUserLeaderboardPosition(userId);
     const user = users[users.length - 1];

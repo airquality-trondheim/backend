@@ -10,7 +10,7 @@ export async function getStations() {
   }
 }
 
-export async function refreshStations(stations: IStation[]) {
+export async function updateStations(stations: IStation[]) {
   try {
     await Station.deleteMany({});
     const newStations = await Station.insertMany(stations) as IStation[];
