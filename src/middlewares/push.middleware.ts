@@ -1,4 +1,4 @@
-import { Expo, ExpoPushMessage, ExpoPushTicket } from 'expo-server-sdk';
+import { Expo, ExpoPushMessage, ExpoPushTicket, ExpoPushReceipt, ExpoPushReceiptId} from 'expo-server-sdk';
 
 /**
  * Example for sending a push notification:
@@ -71,31 +71,31 @@ function sendChunkedMessages(messageChunks: ExpoPushMessage[][]) : ExpoPushTicke
 }
 
 function createReceiptIds(tickets: ExpoPushTicket[]) : string[] {
-  const receiptIds: string[] = [];
+  const receiptIds: ExpoPushReceiptId[] = [];
   for (const ticket of tickets) {
-    if (ticket.id) {
+    if ("id" in ticket) {
       receiptIds.push(ticket.id);
     }
   }
   return receiptIds;
 }
 
-function checkReceipts(receiptIdChunks: string[][]) : void {
+function checkReceipts(receiptIdChunks: ExpoPushReceiptId[][]) : void {
 
   (async () => {
     for (const chunk of receiptIdChunks) {
       try {
         const receipts = await expo.getPushNotificationReceiptsAsync(chunk);
         for (const receiptId in receipts) {
-          const { status, message, details } = receipts[receiptId];
-          if (status === 'ok') {
+          const receipt: ExpoPushReceipt = receipts[receiptId];
+          if (receipt.status === 'ok') {
             continue;
-          } else if (status === 'error') {
+          } else if (receipt.status === 'error') {
             console.error(
-              `There was an error sending a notification: ${message}`
+              `There was an error sending a notification: ${receipt.message}`
             );
-            if (details && details.error) {
-              console.error(`The error code is ${details.error}`);
+            if (receipt.details && receipt.details.error) {
+              console.error(`The error code is ${receipt.details.error}`);
             }
           }
         }
