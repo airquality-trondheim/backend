@@ -5,18 +5,23 @@ path:
       tags: [Leaderboard]
       produces:
         - application/json
-      parameters:
-        - in: query
-          name: next
-          schema:
-            type: string
-          description: A cursor string consisting of a point score and a user id separated by an underscore.
+      parameters:        
         - in: query
           name: limit
           schema: 
             type: integer
           required: true
           description: The number of items to return.
+        - in: query
+          name: next
+          schema:
+            type: string
+          description: A cursor string consisting of a point score and a user id separated by an underscore.
+        - in: query
+          name: area
+          schema:
+            type: string
+          description: Name of an area (delområde) to filter items
       responses:
         "200":
           description: Contains a page of users, whether there are more users, and iff there are more users; a cursor string to use in the subsequent query. 

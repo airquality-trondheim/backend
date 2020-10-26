@@ -1,6 +1,6 @@
 import { Broker } from '../pubsub/broker';
 import { MessageTypes } from '../pubsub/message-types';
-import { IUserAchievement, User } from '../models/user.model';
+import { IUserAchievement, IUserSettings, User } from '../models/user.model';
 
 export async function getAllUsers() {
   try {
@@ -96,7 +96,7 @@ export async function getUserPoints(userId: string) {
   }
 }
 
-export async function updateUserSettings(userId: string, newSettings: any) {
+export async function updateUserSettings(userId: string, newSettings: IUserSettings) {
   try {
     const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { settings: newSettings }, { new: true }).lean();
     return updatedUser;
