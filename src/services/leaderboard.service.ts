@@ -1,8 +1,10 @@
 import { IUser, User } from '../models/user.model';
 
-export async function getUserLeaderboard(limit: number) {
+export async function getUserLeaderboard(limit: number, areaName?: string) {
   try {
-    const users = await User.find({})
+    const queryString = areaName ? { homeArea: areaName } : {}
+
+    const users = await User.find(queryString)
       .lean()
       .sort({ points: 'desc', _id: 'desc' })
       .limit(limit) as IUser[];
@@ -13,9 +15,11 @@ export async function getUserLeaderboard(limit: number) {
   }
 }
 
-export async function getUserLeaderboardWithCursor(limit: number, nextPoints: number, nextId: string) : Promise<IUser[]> {
+export async function getUserLeaderboardWithCursor(limit: number, nextPoints: number, nextId: string, areaName?: string) : Promise<IUser[]> {
   try {
-    const users = await User.find({})
+    const queryString = areaName ? { homeArea: areaName } : {}
+
+    const users = await User.find(queryString)
       .lean()
       .or([{ points: { $lt: nextPoints }}, { points: nextPoints, _id : { $lt: nextId } }])
       .sort({ points: 'desc', _id: 'desc' })
@@ -28,11 +32,13 @@ export async function getUserLeaderboardWithCursor(limit: number, nextPoints: nu
   }
 }
 
-export async function getUserLeaderboardPosition(userId: string) : Promise<IUser[]> {
+export async function getUserLeaderboardPosition(userId: string, areaName?: string) : Promise<IUser[]> {
   try {
     const user = await User.findById({ _id: userId});
 
-    const users = await User.find({})
+    const queryString = areaName ? { homeArea: areaName } : {}
+
+    const users = await User.find(queryString)
       .lean()
       .or([{ points: { $gt: user.points }}, { points: user.points, _id: { $gt: user._id }}, { points: user.points, _id: user._id }])
       .sort({points: 'desc', _id: 'desc'}) as IUser[];
