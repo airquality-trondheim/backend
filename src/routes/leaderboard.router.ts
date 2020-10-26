@@ -10,3 +10,11 @@ LeaderboardRouter
 LeaderboardRouter
   .route('/users/:userId')
   .get(LeaderboardController.getUserLeaderboardPosition);
+
+LeaderboardRouter
+  .route('/areas/top')
+  .get(LeaderboardController.getAreaLeaderboard)
+
+LeaderboardRouter
+  .route('/areas/:areaId')
+  .get(LeaderboardController.getAreaLeaderboardPosition);
