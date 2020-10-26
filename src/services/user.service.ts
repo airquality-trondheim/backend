@@ -14,7 +14,7 @@ export async function getAllUsers() {
 
 export async function addUser(requestBody: any) {
   try {
-    const newUser = new User({ usename: requestBody.username });
+    const newUser = new User({ username: requestBody.username, awsId: requestBody.awsId });
     await newUser.save();
     return newUser;
 
