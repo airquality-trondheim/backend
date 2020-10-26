@@ -1,0 +1,22 @@
+path:
+  /stations/update/:
+    get:
+      summary: Update stations (for Trondheim)
+      tags: [Stations]
+      produces:
+        application/json
+      responses:
+        "201":
+          description: Returns the successfully updated stations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+        "503":
+          description: Could not update stations
+          content:
+            application/json:
+              schema:
+                type: string

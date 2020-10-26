@@ -1,0 +1,91 @@
+components:
+  schemas:
+    AirQualityForecast:
+      type: object
+      properties: 
+        location:
+          type: object
+          properties:
+            name:
+              type: string
+            longitude:
+              type: number
+              format: float
+            latitude:
+              type: number
+              format: float
+            areacode:
+              type: string
+        reftime:
+          type: string
+          format: date-time
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              from: 
+                type: string
+                format: date-time
+              to:
+                type: string
+                format: date-time
+              variables:
+                type: object
+                properties:
+                  AQI:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  AQI_no2:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  AQI_pm10:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  AQI_pm25:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  no2_concentration:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  pm10_concentration:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string
+                  pm25_concentration:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: float
+                      unit:
+                        type: string

@@ -1,4 +1,6 @@
-import { User } from '../models/user.model';
+import { Broker } from '../pubsub/broker';
+import { MessageTypes } from '../pubsub/message-types';
+import { IUserAchievement, User } from '../models/user.model';
 
 export async function getAllUsers() {
   try {
@@ -54,10 +56,33 @@ export async function deleteUser(userId: string) {
 export async function addUserPoints(userId: string, points: number) {
   try {
     const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { $inc: { points: points }}, { new: true });
+
+    Broker.emit(MessageTypes.pointsAdded, userId, points);
+
     return updatedUser;
   
   } catch (error) {
-    throw Error('Could not update user points. \n' + error);
+    throw Error('Could not add user points. \n' + error);
+  }
+}
+
+export async function addUserAchievement(userId: string, achievement: IUserAchievement) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { $push: { achievements: achievement }}, { new: true });
+    return updatedUser;
+  
+  } catch (error) {
+    throw Error('Could not add user achievement. \n' + error);
+  }
+}
+
+export async function increaseUserLevel(userId: string) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { $inc: { level: 1 }}, { new: true });
+    return updatedUser;
+    
+  } catch (error) {
+    throw Error('Could not increase user level. \n' + error);
   }
 }
 
@@ -65,6 +90,7 @@ export async function getUserPoints(userId: string) {
   try {
     const user = await User.findById({ _id: userId });
     return user.points;
+
   } catch (error) {
     throw Error('Could not get user points. \n' + error);
   }

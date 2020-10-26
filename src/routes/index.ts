@@ -4,7 +4,10 @@ import { AchievementRouter } from './achievement.router';
 import { SessionRouter } from './session.router';
 import { LevelRouter } from './level.router';
 import { UserRouter } from './user.router';
+import { StationRouter } from './station.router';
 import { Application } from 'express';
+import { AreaRouter } from './area.router';
+import { AirQualityRouter } from './air-quality.router';
 
 const router = express.Router();
 
@@ -14,4 +17,7 @@ export = (app: Application) => {
     app.use('/sessions', SessionRouter);
     app.use('/levels', LevelRouter);
     app.use('/users', UserRouter);
+    app.use('/stations', StationRouter);
+    app.use('/areas', AreaRouter);
+    app.use('/air-quality', AirQualityRouter);
 };

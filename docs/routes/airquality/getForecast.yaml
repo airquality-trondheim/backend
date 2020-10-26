@@ -1,28 +1,28 @@
 path:
-  /sessions/users/{userId}:
+  /air-quality/forecast/{areacode}:
     get:
-      summary: Get sessions
-      tags: [Sessions]
+      summary: Get air quality forecast from available station or area
+      tags: [Air Quality]
       parameters:
         - in: path
-          name: userId
+          name: areacode
           schema:
             type: string
           required: true
-          description: Object ID of the user retrieving its sessions
+          description: Areacode of interest
       produces:
         application/json
       responses:
         "200":
-          description: Retrieves all sessions belonging to the user.
+          description: Retrieves air quality forecast for given area.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Session'
+                  $ref: '#/components/schemas/AirQualityForecast'
         "400":
-          description: Could not retrieve sessions.
+          description: Could not retrieve air quality forecast.
           content:
             application/json:
               schema:

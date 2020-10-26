@@ -1,6 +1,8 @@
 import { ISession, Session, IWaypoint, ISessionResult } from '../models/session.model';
 import { PollutionLevels, PointModifiers } from '../constants';
 import { getDistance } from 'geolib';
+import { Broker } from '../pubsub/broker';
+import { MessageTypes } from '../pubsub/message-types';
 
 async function calculateSessionResults(waypoints: IWaypoint[]) {
   const sessionResult = {
@@ -67,6 +69,8 @@ export async function registerUserSession(userId: string, sessionData: ISession)
     });
 
     await newSession.save(); 
+
+    Broker.emit(MessageTypes.newSession, newSession);
 
     return newSession;
 

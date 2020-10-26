@@ -1,0 +1,26 @@
+components:
+  schemas:
+    Area:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        path:
+          type: string
+          required: true
+        longitude:
+          type: number
+          required: true
+        latitude:
+          type: number
+          required: true
+        areacode:
+          type: string
+          required: true
+        areaclass:
+          type: string
+          required: true
+        superareacode:
+          type: string
+          required: true
