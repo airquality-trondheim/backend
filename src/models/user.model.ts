@@ -12,6 +12,7 @@ export interface IUserSettings extends Types.Subdocument {
 
 export interface IUser extends Document {
   username: string;
+  awsId: string;
   points: number;
   level: number;
   homeArea: string;
@@ -24,6 +25,7 @@ interface IUserDoc extends IUser, Document {}
 const userSchema = new Schema(
   {
     username:           { type: String, required: true, unique: true, trim: true, minlength: 3 }
+    , awsId:            { type: String, required: true, unique: true }
     , points:           { type: Number, index: true, default: 0 }
     , level:            { type: Number, default: 0 }
     , homeArea:         { type: String, default: "" }
