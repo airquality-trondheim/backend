@@ -31,14 +31,15 @@ async function buildResult(users: IUser[], limit: number) {
 export async function getUserLeaderboard(req: Request, res: Response, next: NextFunction) {
   // validator
   const limit: number = req.query.limit ? parseInt(req.query.limit as string) : 10;
-
+  const areaName = req.query.areaName as string;
+  
   try {
     let users;
     
     // Try to get one more user, than is requested, so that we can determine whether 
     // there are any more users left.
     if (!req.query.next) {
-      users = await LeaderboardService.getUserLeaderboard(limit + 1) as IUser[];
+      users = await LeaderboardService.getUserLeaderboard(limit + 1, areaName) as IUser[];
 
     } else {
       const next = req.query.next as string;
@@ -46,7 +47,7 @@ export async function getUserLeaderboard(req: Request, res: Response, next: Next
       const nextPoints = parseInt(splitNext[0]);
       const nextId = splitNext[1];
 
-      users = await LeaderboardService.getUserLeaderboardWithCursor(limit + 1, nextPoints, nextId) as IUser[];
+      users = await LeaderboardService.getUserLeaderboardWithCursor(limit + 1, nextPoints, nextId, areaName) as IUser[];
     }
 
     const result = await buildResult(users, limit);
@@ -60,8 +61,10 @@ export async function getUserLeaderboard(req: Request, res: Response, next: Next
 export async function getUserLeaderboardPosition(req: Request, res: Response, next: NextFunction) {
   // validator
   const userId = req.params.userId as string;
+  const areaName = req.query.areaName as string;
+
   try {
-    const users = await LeaderboardService.getUserLeaderboardPosition(userId);
+    const users = await LeaderboardService.getUserLeaderboardPosition(userId, areaName);
     const user = users[users.length - 1];
     let result = { rank: users.length, user: user};
     res.status(200).json(result);
@@ -69,5 +72,4 @@ export async function getUserLeaderboardPosition(req: Request, res: Response, ne
   } catch (error) {
     res.status(503).json(error);
   }
-
 }

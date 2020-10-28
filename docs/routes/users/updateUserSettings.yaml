@@ -10,6 +10,17 @@ path:
             type: string
           required: true
           description: Object ID of the user
+      requestBody:
+        description: New settings.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pushNotifications:
+                  type: boolean
+                  required: true
       produces:
         application/json
       responses:
