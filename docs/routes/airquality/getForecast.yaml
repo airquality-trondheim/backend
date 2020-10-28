@@ -18,9 +18,7 @@ path:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AirQualityForecast'
+                $ref: '#/components/schemas/AirQualityForecast'
         "400":
           description: Could not retrieve air quality forecast.
           content:
