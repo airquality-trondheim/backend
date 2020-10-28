@@ -1,6 +1,6 @@
 path:
   /air-quality/forecast/update:
-    get:
+    post:
       summary: Update forecast data for all areas and stations
       tags: [Air Quality]
       produces:
