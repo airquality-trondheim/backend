@@ -1,6 +1,6 @@
 path:
   /areas/update/:
-    get:
+    post:
       summary: Updates the area documents (for Trondheim)
       tags: [Areas]
       produces:
