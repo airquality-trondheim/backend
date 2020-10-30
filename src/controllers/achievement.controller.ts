@@ -18,7 +18,7 @@ export async function addAchievment(req: Request, res: Response, next: NextFunct
 
   try {
     const newAchievement = await AchievementService.addAchievement(achievment);
-    return res.status(201).json({ achievement: newAchievement });
+    return res.status(201).json(newAchievement);
   
   } catch (error) {
     return res.status(503).json(error);

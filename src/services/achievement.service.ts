@@ -1,4 +1,4 @@
-import { Achievement, IAchievement } from '../models/achievement.model';
+import { Achievement, IAchievement, IAchievementDoc } from '../models/achievement.model';
 
 /**
  * Gets all achievment documents.
@@ -28,7 +28,7 @@ export async function getAllAchievements(): Promise<IAchievement[]> {
  * @throws Will throw an error if the achievement document could not be created.
  */
 export async function addAchievement(achievementData: IAchievement): Promise<IAchievement> {
-  try {
+  try {    
     const newAchievement = new Achievement({
       name: achievementData.name,
       category: achievementData.category,
@@ -39,8 +39,9 @@ export async function addAchievement(achievementData: IAchievement): Promise<IAc
       qty: achievementData.qty
     });
 
-    await newAchievement.save();
-    return newAchievement;    
+    await newAchievement.save()
+
+    return newAchievement;
 
   } catch (error) {
     throw Error('Could not create Achievement document. \n' + error);
@@ -90,10 +91,10 @@ export async function getAchievementById(achievementId: string): Promise<IAchiev
  * @async
  * @function getAchievement
  * @param {string} achievementId - The document object id of the achievement document.
- * @returns {IAchievement} The specified achievement document.
+ * @returns {IAchievementDoc} The specified achievement document.
  * @throws Will throw an error if the achievement document could not be retrieved.
  */
-export async function getAchievementByName(achievementName: string): Promise<IAchievement> {
+export async function getAchievementByName(achievementName: string): Promise<IAchievementDoc> {
   try {
     const achievement = await Achievement.findOne({ name: achievementName });
     return achievement;

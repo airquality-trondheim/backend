@@ -31,6 +31,7 @@ PopulateRouter.route('/achievements').get(async (req: Request, res: Response) =>
     { name: 'Tre om dagen',       category: "Intensitet",   iconUrl: 'default', description: 'Fullfør tre turer på én dag.',                        value: "Sølv", pointValue: 100, qty: 0 },
     { name: 'Hurtigper',          category: "Intensitet",   iconUrl: 'default', description: 'Fullfør tre turer med en gjennomsnittshastighet over 10 kilometer per time.', value: "Gull", pointValue: 200, qty: 0 },
     { name: 'Timesvis',           category: "Intensitet",   iconUrl: 'default', description: 'Fullfør turer tilsvarende tre timer på én dag.',      value: "Gull", pointValue: 200, qty: 0 },
+    { name: 'Jomfrutur',          category: 'Variant',      iconUrl: 'default', description: 'Fullfør din første tur.',                             value: 'Bronse', pointValue: 50, qty: 0},
     { name: 'En helgrønn tur',    category: "Variant",      iconUrl: 'default', description: 'Fullfør en tur fullstendig i grønn sone.',            value: "Bronse", pointValue: 50, qty: 0 },
     { name: 'Grønnillion',        category: "Variant",      iconUrl: 'default', description: 'Tjen ett tusen grønne poeng på én tur.',              value: "Sølv", pointValue: 100, qty: 0 },
     { name: 'Rundt ekvator',      category: "Distanse",     iconUrl: 'default', description: 'Fullfør turer tilsvarende avstanden rundt ekvator (40 075 km).',  value: "Platinum", pointValue: 500, qty: 0 },
@@ -54,5 +55,14 @@ PopulateRouter.route('/clear-all').get(async (req: Request, res: Response) => {
     res.status(200).json('User documents and achievement documents successfully dropped.');
   } catch (err) {
     res.status(500).json('Deletion attempt unsuccessful. An internal server error has occured.');
+  }
+});
+
+PopulateRouter.route('/clear-achievements').get(async (req: Request, res: Response) => {
+  try {
+    await Achievement.collection.drop();
+    return res.status(200).json('User documents and achievement documents successfully dropped.');
+  } catch (err) {
+    return res.status(500).json('Deletion attempt unsuccessful. An internal server error has occured.');
   }
 });
