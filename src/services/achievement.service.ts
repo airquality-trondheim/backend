@@ -23,18 +23,20 @@ export async function getAllAchievements(): Promise<IAchievement[]> {
  * 
  * @async
  * @function addAchievement
- * @param {IAchievement} requestBody - The request body of the request parsed into an achievement interface.
+ * @param {IAchievement} achievementData - The request body of the request parsed into an achievement interface.
  * @returns {IAchievement} The newly created achievement document.
  * @throws Will throw an error if the achievement document could not be created.
  */
-export async function addAchievement(requestBody: IAchievement): Promise<IAchievement> {
+export async function addAchievement(achievementData: IAchievement): Promise<IAchievement> {
   try {
     const newAchievement = new Achievement({
-      name: requestBody.name,
-      category: requestBody.category,
-      iconUrl: requestBody.iconUrl,
-      description: requestBody.description,
-      value: requestBody.value
+      name: achievementData.name,
+      category: achievementData.category,
+      iconUrl: achievementData.iconUrl,
+      description: achievementData.description,
+      value: achievementData.value,
+      pointValue: achievementData.pointValue,
+      qty: achievementData.qty
     });
 
     await newAchievement.save();
