@@ -1,6 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 
-export interface IAchievement extends Document {
+export interface IAchievement {
   name: string;
   category: string;
   iconUrl: string;
@@ -9,6 +9,8 @@ export interface IAchievement extends Document {
   pointValue: number;
   qty: number;
 }
+
+export interface IAchievementDoc extends IAchievement, Document { }
 
 const achievementSchema = new Schema(
   {
@@ -25,4 +27,4 @@ const achievementSchema = new Schema(
   }
 );
 
-export const Achievement = model<IAchievement>('Achievement', achievementSchema);
+export const Achievement = model<IAchievementDoc>('Achievement', achievementSchema);
