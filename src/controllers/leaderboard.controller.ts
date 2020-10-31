@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUser } from '../models/user.model';
 import * as LeaderboardService from '../services/leaderboard.service';
+import * as UserIdMiddleware from '../middlewares/user-id.middleware';
 
 interface IResult {
   rankings: IUser[];
@@ -9,7 +10,7 @@ interface IResult {
 }
 
 async function buildResult(users: IUser[], limit: number) {
-  let result = {} as IResult;
+  const result = {} as IResult;
 
   result.rankings = [];
   users.forEach((user) => result.rankings.push(JSON.parse(JSON.stringify(user))));
@@ -18,7 +19,7 @@ async function buildResult(users: IUser[], limit: number) {
     result.rankings.pop();
     result.last = false;
 
-    let lastItem = result.rankings[result.rankings.length-1];
+    const lastItem = result.rankings[result.rankings.length-1];
 
     result.next = `${lastItem.points}_${lastItem._id}`;
   } else {
@@ -60,13 +61,14 @@ export async function getUserLeaderboard(req: Request, res: Response, next: Next
 
 export async function getUserLeaderboardPosition(req: Request, res: Response, next: NextFunction) {
   // validator
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
   const areaName = req.query.areaName as string;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     const users = await LeaderboardService.getUserLeaderboardPosition(userId, areaName);
     const user = users[users.length - 1];
-    let result = { rank: users.length, user: user};
+    const result = { rank: users.length, user: user};
     res.status(200).json(result);
 
   } catch (error) {
