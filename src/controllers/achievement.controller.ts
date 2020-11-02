@@ -18,7 +18,7 @@ export async function addAchievment(req: Request, res: Response, next: NextFunct
 
   try {
     const newAchievement = await AchievementService.addAchievement(achievment);
-    return res.status(201).json({ achievement: newAchievement });
+    return res.status(201).json(newAchievement);
   
   } catch (error) {
     return res.status(503).json(error);
@@ -58,7 +58,7 @@ export async function updateAchievement(req: Request, res: Response, next: NextF
 
   try {
     const updatedAchievement = await AchievementService.updateAchievement(achievementId, achievement);
-    return res.status(200).json({ achievement: updatedAchievement });
+    return res.status(200).json(updatedAchievement);
     
   } catch (error) {
     return res.status(503).json(error);

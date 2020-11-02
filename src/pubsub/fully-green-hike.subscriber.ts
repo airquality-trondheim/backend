@@ -5,14 +5,19 @@ import * as UserService from '../services/user.service';
 import { PollutionLevels } from '../constants';
 import { IUserAchievement } from '../models/user.model';
 
-export async function lowPollutionSubscriber(newSession: ISession) {
+export async function fullyGreenHikeSubscriber(newSession: ISession) {
+  const achievement = await AchievementService.getAchievementByName('En helgrønn tur');
+  
   const userId = newSession.userId;
+
+  // If user already has this achievement, then return.
+  const hasAchievement = await UserService.userHasAchievement(userId, achievement._id);
+  if (hasAchievement) return;
+  
   const isLowPollution = (waypoint: IWaypoint) => waypoint.pollutionLevel === PollutionLevels.Low;
   const isAirPollutionAvoided: boolean = newSession.waypoints.every(isLowPollution);
 
   if (isAirPollutionAvoided) {
-    const achievement = await AchievementService.getAchievementByName('En helgrønn tur');
-
     const userAchievement: IUserAchievement = {
       timestampEarned: (new Date()).toISOString(),
       achievementId: achievement._id

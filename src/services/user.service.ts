@@ -105,3 +105,15 @@ export async function updateUserSettings(userId: string, newSettings: IUserSetti
     throw Error('Could not update user. \n' + error);
   }
 }
+
+export async function userHasAchievement(userId: string, achievementId: string): Promise<boolean> {
+  try {
+    const user =  await User.findOne({ _id: userId });
+    const neqAchievementId = (uach: IUserAchievement) => uach.achievementId != achievementId;
+    
+    return user.achievements.every(neqAchievementId);
+
+  } catch (error) {
+    throw Error('could not check user achievements. \n' + error);
+  }
+}
