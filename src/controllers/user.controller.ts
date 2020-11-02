@@ -113,7 +113,7 @@ export async function updateUserSettings(req: Request, res: Response, next: Next
 export async function updateUserHomeArea(req: Request, res: Response, next: NextFunction) {
   // validators
   let userId = req.params.userId as string;
-  const newHomeArea = req.body as string;
+  const newHomeArea = req.body.homeArea as string;
 
   try {
     userId = await UserIdMiddleware.getDbUserId(userId);
