@@ -30,3 +30,11 @@ UserRouter
 UserRouter
   .route('/:userId/settings')
   .put(UserController.updateUserSettings);
+
+UserRouter
+  .route('/:userId/homeArea')
+  .put(UserController.updateUserHomeArea);
+
+UserRouter
+  .route('/:userId/zodiac')
+  .put(UserController.updateUserZodiac);

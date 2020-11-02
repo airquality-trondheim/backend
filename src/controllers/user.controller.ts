@@ -108,3 +108,34 @@ export async function updateUserSettings(req: Request, res: Response, next: Next
     return res.status(503).json(error);
   }
 }
+
+
+export async function updateUserHomeArea(req: Request, res: Response, next: NextFunction) {
+  // validators
+  let userId = req.params.userId as string;
+  const newHomeArea = req.body as string;
+
+  try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
+    const updatedUser = await UserService.updateUserHomeArea(userId, newHomeArea);
+    return res.status(200).json({user: updatedUser})
+  
+  } catch (error) {
+    return res.status(503).json(error);
+  }
+}
+
+export async function updateUserZodiac(req: Request, res: Response, next: NextFunction) {
+  // validators
+  let userId = req.params.userId as string;
+  const newHomeArea = req.body as string;
+
+  try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
+    const updatedUser = await UserService.updateUserHomeArea(userId, newHomeArea);
+    return res.status(200).json({user: updatedUser})
+  
+  } catch (error) {
+    return res.status(503).json(error);
+  }
+}
