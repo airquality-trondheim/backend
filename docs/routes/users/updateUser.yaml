@@ -1,0 +1,104 @@
+path:
+  /users/{userId}/settings:
+    put:
+      summary: Update the user's settings.
+      tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Object ID of the user
+      requestBody:
+        description: New settings.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pushNotifications:
+                  type: boolean
+                  required: true
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Returns the updated user document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Update unsuccessful
+          content:
+            application/json:
+              schema:
+                type: string  
+  /users/{userId}/homeArea:
+    put:
+      summary: Update the user's home area.
+      tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+      requestBody:
+        description: New home area.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Returns the updated user document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Update unsuccessful
+          content:
+            application/json:
+              schema:
+                type: string
+  /users/{userId}/zodiac:
+    put:
+      summary: Update the user's zodiac.
+      tags: [Users]
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+      requestBody:
+        description: New zodiac.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      produces:
+        application/json
+      responses:
+        "200":
+          description: Returns the updated user document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Update unsuccessful
+          content:
+            application/json:
+              schema:
+                type: string

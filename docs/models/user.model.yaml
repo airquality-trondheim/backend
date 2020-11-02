@@ -12,6 +12,10 @@ components:
           type: number
         level:
           type: number
+        homeArea:
+          type: string
+        zodiac:
+          type: string
         achievements:
           type: array
           items:
