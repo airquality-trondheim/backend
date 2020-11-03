@@ -22,15 +22,17 @@ components:
             type: object
             properties:
               timestampEarned:
-                type: string 
+                type: string
                 format: date-time
               achievementId:
                 type: string
         settings:
           type: object
           properties:
-            pushNotifications: 
+            pushNotifications:
               type: boolean
+            pushToken:
+              type: string
         __v:
           type: number
         createdAt:

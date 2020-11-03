@@ -21,21 +21,23 @@ path:
                 pushNotifications:
                   type: boolean
                   required: true
-      produces:
-        application/json
+                pushToken:
+                  type: string
+                  required: true
+      produces: application/json
       responses:
-        "200":
+        '200':
           description: Returns the updated user document
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        "400":
+        '400':
           description: Update unsuccessful
           content:
             application/json:
               schema:
-                type: string  
+                type: string
   /users/{userId}/homeArea:
     put:
       summary: Update the user's home area.
@@ -54,16 +56,15 @@ path:
           application/json:
             schema:
               type: string
-      produces:
-        application/json
+      produces: application/json
       responses:
-        "200":
+        '200':
           description: Returns the updated user document
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        "400":
+        '400':
           description: Update unsuccessful
           content:
             application/json:
@@ -87,16 +88,15 @@ path:
           application/json:
             schema:
               type: string
-      produces:
-        application/json
+      produces: application/json
       responses:
-        "200":
+        '200':
           description: Returns the updated user document
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        "400":
+        '400':
           description: Update unsuccessful
           content:
             application/json:
