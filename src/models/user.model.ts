@@ -8,6 +8,7 @@ export interface IUserAchievement {
 
 export interface IUserSettings extends Types.Subdocument {
   pushNotifications: boolean;
+  pushToken: string;
 }
 
 export interface IUser extends Document {
