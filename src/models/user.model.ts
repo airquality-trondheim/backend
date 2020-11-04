@@ -40,6 +40,7 @@ const userSchema = new Schema(
     
     , settings:         {
       pushNotifications:{ type: Boolean, default: false },
+      pushToken:{ type: String, default: '' },
     }
   },
   {
