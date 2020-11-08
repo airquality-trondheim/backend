@@ -116,6 +116,26 @@ export async function updateUserSettings(userId: string, newSettings: IUserSetti
   }
 }
 
+export async function updateUserHomeArea(userId: string, homeArea: string) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { homeArea: homeArea }, { new: true})
+    return updatedUser;
+  
+  } catch (error) {
+    throw Error('Could not update user. \n' + error);
+  }
+}
+
+export async function updateUserZodiac(userId: string, zodiac: string) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { zodiac: zodiac }, { new: true });
+    return updatedUser;
+    
+  } catch (error) {
+    throw Error('Could not update user. \n' + error);
+  }
+}
+
 export async function userHasAchievement(userId: string, achievementId: string): Promise<boolean> {
   try {
     const user =  await User.findOne({ _id: userId });
