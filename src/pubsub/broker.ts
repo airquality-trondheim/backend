@@ -19,6 +19,7 @@ import { aRealTripSubscriber } from './a-real-trip.subscriber';
 import { chieftainSubscriber } from './chieftain.subscriber';
 import { kingOfTheHillSubscriber } from './king-of-the-hill.subscriber';
 import { localChampionSubscriber } from './local-champion.subscriber';
+import { forecastQualitySubscriber } from './forecast-quality.subscriber';
 
 export const Broker = new EventEmitter(); 
 Broker.setMaxListeners(20);
@@ -42,3 +43,4 @@ Broker.on(MessageTypes.pointsAdded, chieftainSubscriber);
 Broker.on(MessageTypes.pointsAdded, kingOfTheHillSubscriber);
 Broker.on(MessageTypes.pointsAdded, localChampionSubscriber);
 Broker.on(MessageTypes.pointsAdded, levelUpSubscriber);
+Broker.on(MessageTypes.newForecast, forecastQualitySubscriber);

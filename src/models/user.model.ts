@@ -1,5 +1,4 @@
 import { Schema, Document, model, Types } from 'mongoose';
-import { IArea } from './area.model';
 
 export interface IUserAchievement {
   timestampEarned: string;
@@ -39,8 +38,8 @@ const userSchema = new Schema(
     }]
     
     , settings:         {
-      pushNotifications:{ type: Boolean, default: false },
-      pushToken:{ type: String, default: '' },
+        pushNotifications: { type: Boolean, default: false },
+        pushToken: { type: String, default: '' }
     }
   },
   {

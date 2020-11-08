@@ -33,6 +33,16 @@ export async function getUser(userId: string) {
   }
 }
 
+export async function getUsersByArea(areaName: string) {
+  try {
+    const users = await User.find({ homeArea: areaName });
+    return users;
+
+  } catch (error) {
+    throw Error('Could not get users. \n' + error);
+  }
+}
+
 export async function updateUser(userId: string, requestBody: any) {
   try {
     const updatedUser = await User.findByIdAndUpdate({ _id: userId }, requestBody, { new: true }).lean();

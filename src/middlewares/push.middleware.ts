@@ -14,7 +14,7 @@ import { Expo, ExpoPushMessage, ExpoPushTicket, ExpoPushReceipt, ExpoPushReceipt
 
 type PushMessageInfo = {
   messageTitle: string,
-  messageData: Record<string, unknown>,
+  messageBody: string,
 }
 
 const expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
@@ -46,8 +46,8 @@ function createMessages(pushTokens: string[], message: PushMessageInfo) : ExpoPu
     messages.push({
       to: pushToken,
       sound: 'default',
-      body: message.messageTitle,
-      data: message.messageData,
+      title: message.messageTitle,
+      body: message.messageBody,
     })
   }
 
