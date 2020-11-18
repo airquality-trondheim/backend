@@ -58,7 +58,7 @@ The following diagram shows the conceptual structure of the code.
 
 <img src="https://user-images.githubusercontent.com/47078189/99582175-0cdba100-29e2-11eb-92dd-5535a8cd52d3.png" width="500">
 
-In short, the application is a single monolithic code base. It follows a layered pattern, where a defined stack of layers may only call into immediately adjacent layers. The top layer is the routing layer, which accepts requests from the client
+In short, the application is a single monolithic code base. It follows a layered pattern, where a defined stack of layers may only call into immediately adjacent layers. The top layer is the routing layer, which deals with routing of requests and responses. The controller layer accepts requests and builds responses by calling into the service layer, which performs business logic and interfaces with the data layer. The data layer deals with the interactions between the application and the database. Cross cutting concerns like security are dealt with at every level.
 
 
 ## Technologies
