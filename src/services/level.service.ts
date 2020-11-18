@@ -1,5 +1,15 @@
 import { Level, ILevel } from '../models/level.model';
 
+export async function getAllLevels() {
+  try {
+    const levels = await Level.find({}).lean();
+    return levels;
+    
+  } catch (error) {
+    throw Error('Could not get all levels. \n' + error);
+  }
+}
+
 export async function addLevel(levelData: ILevel) {
   try {
     const newLevel = new Level(levelData);

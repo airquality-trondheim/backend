@@ -12,6 +12,11 @@ path:
             type: string
           required: true
           description: Id of the user
+        - in: query
+          name: area
+          schema:
+            type: string
+          description: Name of an area (delområde) to filter items
       responses:
         "200":
           description: A leaderboard position object

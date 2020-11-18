@@ -1,6 +1,6 @@
 path:
   /stations/update/:
-    get:
+    post:
       summary: Update stations (for Trondheim)
       tags: [Stations]
       produces:

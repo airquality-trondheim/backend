@@ -18,7 +18,7 @@ const swaggerOptions = {
     info: {
       title: 'Air Quality Monitoring Application API',
       description:
-        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.' + __filename,
+        'This API is for the personalized air quality monitoring application developed for TDT4290, fall 2020.',
       termsOfService: 'http://example.com/terms/',
       contact: {
         name: 'API Support',

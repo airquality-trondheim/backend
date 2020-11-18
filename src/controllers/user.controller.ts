@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUserSettings, IUser } from '../models/user.model';
 import * as UserService from '../services/user.service';
+import * as UserIdMiddleware from '../middlewares/user-id.middleware';
 
 export async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -38,9 +39,10 @@ export async function addUser(req: Request, res: Response, next: NextFunction) {
 
 export async function getUser(req: Request, res: Response, next: NextFunction) {
   // validator
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     const user = await UserService.getUser(userId);
     return res.status(200).json({ user: user });
   
@@ -51,10 +53,11 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
 
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
   // validator
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
   const user = req.body as IUser;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     const updatedUser = await UserService.updateUser(userId, user);
     return res.status(200).json({ user: updatedUser });
 
@@ -65,9 +68,10 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
 
 export async function deleteUser(req: Request, res: Response, next: NextFunction) {
   // validator
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     await UserService.deleteUser(userId);
     return res.status(200).json(`User with _id ${userId} successfully deleted.`);
 
@@ -78,9 +82,10 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
 
 export async function getUserPoints(req: Request, res: Response, next: NextFunction) {
   // validator
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     const userPoints = await UserService.getUserPoints(userId);
     return res.status(200).json({ points: userPoints });
     
@@ -91,13 +96,45 @@ export async function getUserPoints(req: Request, res: Response, next: NextFunct
 
 export async function updateUserSettings(req: Request, res: Response, next: NextFunction) {
   // validators
-  const userId = req.params.userId as string;
+  let userId = req.params.userId as string;
   const newSettings = req.body as IUserSettings;
 
   try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
     const updatedUser = await UserService.updateUserSettings(userId, newSettings);
     return res.status(200).json({ user: updatedUser });
 
+  } catch (error) {
+    return res.status(503).json(error);
+  }
+}
+
+
+export async function updateUserHomeArea(req: Request, res: Response, next: NextFunction) {
+  // validators
+  let userId = req.params.userId as string;
+  const newHomeArea = req.body.homeArea as string;
+
+  try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
+    const updatedUser = await UserService.updateUserHomeArea(userId, newHomeArea);
+    return res.status(200).json({user: updatedUser})
+  
+  } catch (error) {
+    return res.status(503).json(error);
+  }
+}
+
+export async function updateUserZodiac(req: Request, res: Response, next: NextFunction) {
+  // validators
+  let userId = req.params.userId as string;
+  const newHomeArea = req.body as string;
+
+  try {
+    userId = await UserIdMiddleware.getDbUserId(userId);
+    const updatedUser = await UserService.updateUserHomeArea(userId, newHomeArea);
+    return res.status(200).json({user: updatedUser})
+  
   } catch (error) {
     return res.status(503).json(error);
   }

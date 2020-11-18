@@ -1,6 +1,6 @@
 import { Broker } from '../pubsub/broker';
 import { MessageTypes } from '../pubsub/message-types';
-import { IUserAchievement, User } from '../models/user.model';
+import { IUserAchievement, IUserSettings, User } from '../models/user.model';
 
 export async function getAllUsers() {
   try {
@@ -14,7 +14,7 @@ export async function getAllUsers() {
 
 export async function addUser(requestBody: any) {
   try {
-    const newUser = new User({ usename: requestBody.username });
+    const newUser = new User({ username: requestBody.username, awsId: requestBody.awsId });
     await newUser.save();
     return newUser;
 
@@ -30,6 +30,16 @@ export async function getUser(userId: string) {
 
   } catch (error) {
     throw Error('Could not get user. \n' + error);
+  }
+}
+
+export async function getUsersByArea(areaName: string) {
+  try {
+    const users = await User.find({ homeArea: areaName });
+    return users;
+
+  } catch (error) {
+    throw Error('Could not get users. \n' + error);
   }
 }
 
@@ -96,12 +106,44 @@ export async function getUserPoints(userId: string) {
   }
 }
 
-export async function updateUserSettings(userId: string, newSettings: any) {
+export async function updateUserSettings(userId: string, newSettings: IUserSettings) {
   try {
     const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { settings: newSettings }, { new: true }).lean();
     return updatedUser;
   
   } catch (error) {
     throw Error('Could not update user. \n' + error);
+  }
+}
+
+export async function updateUserHomeArea(userId: string, homeArea: string) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { homeArea: homeArea }, { new: true})
+    return updatedUser;
+  
+  } catch (error) {
+    throw Error('Could not update user. \n' + error);
+  }
+}
+
+export async function updateUserZodiac(userId: string, zodiac: string) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { zodiac: zodiac }, { new: true });
+    return updatedUser;
+    
+  } catch (error) {
+    throw Error('Could not update user. \n' + error);
+  }
+}
+
+export async function userHasAchievement(userId: string, achievementId: string): Promise<boolean> {
+  try {
+    const user =  await User.findOne({ _id: userId });
+    const neqAchievementId = (uach: IUserAchievement) => uach.achievementId != achievementId;
+    
+    return user.achievements.every(neqAchievementId);
+
+  } catch (error) {
+    throw Error('could not check user achievements. \n' + error);
   }
 }
