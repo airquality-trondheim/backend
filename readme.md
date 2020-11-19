@@ -41,6 +41,8 @@ Furthermore, AWS hosts the [MongoDB](https://www.mongodb.com/) database for the 
 
 For emitting push notification, the system leverages a [development kit for Expo](https://github.com/expo/expo-server-sdk-node) along with Expo's notification infrastructure, owing to the fact that the client application is written in React Native, which also uses [Expo](https://docs.expo.io/).
 
+The server application includes several pieces of vestigial or unused functionality, and functionality that should be admin authorized, like adding new achievments etc.
+
 ## Features
 
 <img src="https://user-images.githubusercontent.com/47078189/99588697-482e9d80-29eb-11eb-806b-a7f48eaa8635.png" width="500">
