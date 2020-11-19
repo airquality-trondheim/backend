@@ -1,4 +1,6 @@
+import { Broker } from '../pubsub/broker';
 import { IForecast, Forecast } from '../models/air-quality-forecast.model';
+import { MessageTypes } from '../pubsub/message-types';
 
 export async function getForecast(areacode: string) {
   try {
@@ -16,6 +18,8 @@ export async function updateForecast(forecast: IForecast) {
     // Query on embedded field, i.e. IForecast#location.areacode seems to work only when enclosing in quotation marks. 
     const oldForecast = await Forecast.findOne({ "location.areacode": forecast.location.areacode });
     const newForecast = await Forecast.create(forecast);
+
+    Broker.emit(MessageTypes.newForecast, newForecast);
     
     if (oldForecast) {
       await Forecast.deleteOne({ _id: oldForecast._id });

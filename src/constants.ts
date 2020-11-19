@@ -14,3 +14,16 @@ export const enum PointModifiers {
 export const enum Urls {
   apiBaseUrl = 'https://api.met.no/weatherapi/airqualityforecast/0.1'
 }
+
+export const AqiThresholdsForPushNotifications = {
+  red: {
+    value: 1,
+    title: 'Betydelig helserisiko',
+    description: 'Barn, gravide, syke og eldre bør vurdere begrenset utendørs fysisk aktivitet.',
+  },
+  purple: {
+    value: 4,
+    title: 'Alvorlig helserisiko',
+    description: 'Vurder å ikke oppholde deg utendørs i lengre perioder. Barn, gravide, syke og eldre må være spesielt forsiktige.',
+  },
+}
