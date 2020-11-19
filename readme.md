@@ -41,7 +41,9 @@ Furthermore, AWS hosts the [MongoDB](https://www.mongodb.com/) database for the 
 
 For emitting push notification, the system leverages a [development kit for Expo](https://github.com/expo/expo-server-sdk-node) along with Expo's notification infrastructure, owing to the fact that the client application is written in React Native, which also uses [Expo](https://docs.expo.io/).
 
-The server application includes several pieces of vestigial or unused functionality, and functionality that should be admin authorized, like adding new achievments etc.
+The server application includes several pieces of vestigial or unused functionality, and functionality that should be authorized only for a system adminstrator, like adding new achievments etc.
+
+The repository includes an unmerged branch containing validation logic for request bodies for client facing routes.
 
 ## Features
 
@@ -80,7 +82,7 @@ In rough terms, the technology stack consists of three elements. All the code ex
 - swagger-jsdoc 4.0.0, for generating swagger documentation
 - swagger-ui-express 4.1.4, for generating a served API documentation page
 - typescript 4.0.3, for typed javascript
-- validator 13.1.17, for request data validation
+- validatorjs 3.21.0, for request data validation
 
 ### Development dependencies
 - @types/express 4.17.8, for type annotations for Express.js
