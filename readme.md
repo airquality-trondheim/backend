@@ -37,7 +37,7 @@ The system also uses a custom Amazon Lambda function with a post-confirmation tr
 
 For an efficient development process, Continuous Deployment was implemented through [_AWS CodePipeline_](https://aws.amazon.com/codepipeline/).
 
-Furthermore, AWS hosts the [MongoDB](https://www.mongodb.com/) database for the server application. Due to technical difficulties the connection string to the  MongoDB instance is stored in plain text in the source code. However, the MongoDB instance only has the production server address whitelisted.  
+Furthermore, AWS hosts the [MongoDB](https://www.mongodb.com/) database for the server application. The database was set up through MongoDB Atlas, which in turn uses AWS. Making the database is only accessible through MongoDB, and not directly through AWS. Due to technical difficulties the connection string to the MongoDB instance is stored in plain text in the source code. However, the MongoDB instance only has the production server address whitelisted.  
 
 For emitting push notification, the system leverages a [development kit for Expo](https://github.com/expo/expo-server-sdk-node) along with Expo's notification infrastructure, owing to the fact that the client application is written in React Native, which also uses [Expo](https://docs.expo.io/).
 
