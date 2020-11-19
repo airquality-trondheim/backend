@@ -30,7 +30,6 @@ async function buildResult(users: IUser[], limit: number) {
 }
 
 export async function getUserLeaderboard(req: Request, res: Response, next: NextFunction) {
-  // validator
   const limit: number = req.query.limit ? parseInt(req.query.limit as string) : 10;
   const areaName = req.query.areaName as string;
   
@@ -60,7 +59,6 @@ export async function getUserLeaderboard(req: Request, res: Response, next: Next
 }
 
 export async function getUserLeaderboardPosition(req: Request, res: Response, next: NextFunction) {
-  // validator
   let userId = req.params.userId as string;
   const areaName = req.query.areaName as string;
 

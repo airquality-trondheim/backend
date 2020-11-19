@@ -4,17 +4,18 @@ import * as AchievementService from '../services/achievement.service';
 import * as UserService from '../services/user.service';
 import * as SessionService from '../services/session.service';
 import { IUserAchievement } from '../models/user.model';
+import * as UserIdMiddleware from '../middlewares/user-id.middleware';
 
 export async function poleToPoleSubscriber(newSession: ISession) {
   const achievement = await AchievementService.getAchievementByName('Pol til pol');
   
-  const userId = newSession.userId;
+  const userId = await UserIdMiddleware.getDbUserId(newSession.userId);
   
   // If user already has this achievement, then return.
   const hasAchievement = await UserService.userHasAchievement(userId, achievement._id);
   if (hasAchievement) return;
 
-  const sessions = await SessionService.getAllUserSessions(userId);
+  const sessions = await SessionService.getAllUserSessions(newSession.userId);
 
   let meterDistance = 0;
   sessions.forEach(session => meterDistance += session.sessionResult.metersTraveled)

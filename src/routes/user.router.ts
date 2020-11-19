@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as UserController from '../controllers/user.controller';
 import * as AuthMiddleware from '../middlewares/auth.middleware';
+import * as Validators from '../middlewares/validation.middleware';
 
 export const UserRouter: Router = require('express').Router();
 
@@ -29,11 +30,11 @@ UserRouter
 
 UserRouter
   .route('/:userId/settings')
-  .put(UserController.updateUserSettings);
+  .put(Validators.settings, UserController.updateUserSettings);
 
 UserRouter
   .route('/:userId/homeArea')
-  .put(UserController.updateUserHomeArea);
+  .put(Validators.area, UserController.updateUserHomeArea);
 
 UserRouter
   .route('/:userId/zodiac')

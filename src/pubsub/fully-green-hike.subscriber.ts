@@ -4,12 +4,12 @@ import * as AchievementService from '../services/achievement.service';
 import * as UserService from '../services/user.service';
 import { PollutionLevels } from '../constants';
 import { IUserAchievement } from '../models/user.model';
+import * as UserIdMiddleware from '../middlewares/user-id.middleware';
 
 export async function fullyGreenHikeSubscriber(newSession: ISession) {
   const achievement = await AchievementService.getAchievementByName('En helgrønn tur');
   
-  const userId = newSession.userId;
-
+  const userId = await UserIdMiddleware.getDbUserId(newSession.userId);
   // If user already has this achievement, then return.
   const hasAchievement = await UserService.userHasAchievement(userId, achievement._id);
   if (hasAchievement) return;

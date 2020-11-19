@@ -1,5 +1,6 @@
 import * as AchievementService from '../services/achievement.service';
 import * as UserService from '../services/user.service';
+import { IAchievementDoc } from '../models/achievement.model';
 import { IUserAchievement } from '../models/user.model';
 
 export async function chieftainSubscriber(userId: string, pointsAdded: number) {

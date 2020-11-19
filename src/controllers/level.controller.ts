@@ -13,7 +13,6 @@ export async function getAllLevels(req: Request, res: Response, next: NextFuncti
 }
 
 export async function addLevel(req: Request, res: Response, next: NextFunction) {
-  // validator
   const levelData = req.body as ILevel;
 
   try {
@@ -26,7 +25,6 @@ export async function addLevel(req: Request, res: Response, next: NextFunction) 
 }
 
 export async function getLevel(req: Request, res: Response, next: NextFunction) {
-  // validator
   const levelNo = parseInt(req.params.levelNo as string);
 
   try {
@@ -39,7 +37,6 @@ export async function getLevel(req: Request, res: Response, next: NextFunction) 
 }
 
 export async function updateLevel(req: Request, res: Response, next: NextFunction) {
-  // validator
   const levelNo = parseInt(req.params.levelNo as string);
   const levelData = req.body as ILevel;
 

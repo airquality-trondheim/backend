@@ -4,17 +4,18 @@ import * as UserService from '../services/user.service';
 import * as SessionService from '../services/session.service';
 import { IUserAchievement } from '../models/user.model';
 import { differenceInCalendarDays } from 'date-fns';
+import * as UserIdMiddleware from '../middlewares/user-id.middleware';
 
 export async function threeADaySubscriber(newSession: ISession) {
   const achievement = await AchievementService.getAchievementByName('Tre om dagen');
 
-  const userId = newSession.userId;
+  const userId = await UserIdMiddleware.getDbUserId(newSession.userId);
   
   // If user already has this achievement, then return.
   const hasAchievement = await UserService.userHasAchievement(userId, achievement._id);
   if (hasAchievement) return;
 
-  const sessions = await SessionService.getAllUserSessions(userId);
+  const sessions = await SessionService.getAllUserSessions(newSession.userId);
   const sessionsCount = sessions.length;
 
   // Early return if impossible in terms of number of sessions
