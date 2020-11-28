@@ -9,7 +9,6 @@ import axios, { AxiosResponse } from 'axios';
 import { Urls } from '../constants';
 
 export async function getForecast(req: Request, res: Response, next: NextFunction) {
-  // validator
   const areacode = req.params.areaName as string;
 
   try {

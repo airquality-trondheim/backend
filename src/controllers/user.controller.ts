@@ -25,7 +25,6 @@ export async function getUserCount(req: Request, res: Response, next: NextFuncti
 }
 
 export async function addUser(req: Request, res: Response, next: NextFunction) {
-  // validator
   const user = req.body as IUser;
 
   try {
@@ -38,7 +37,6 @@ export async function addUser(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function getUser(req: Request, res: Response, next: NextFunction) {
-  // validator
   let userId = req.params.userId as string;
 
   try {
@@ -52,7 +50,6 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
-  // validator
   let userId = req.params.userId as string;
   const user = req.body as IUser;
 
@@ -67,7 +64,6 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
 }
 
 export async function deleteUser(req: Request, res: Response, next: NextFunction) {
-  // validator
   let userId = req.params.userId as string;
 
   try {
@@ -81,7 +77,6 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
 }
 
 export async function getUserPoints(req: Request, res: Response, next: NextFunction) {
-  // validator
   let userId = req.params.userId as string;
 
   try {
@@ -95,7 +90,6 @@ export async function getUserPoints(req: Request, res: Response, next: NextFunct
 }
 
 export async function updateUserSettings(req: Request, res: Response, next: NextFunction) {
-  // validators
   let userId = req.params.userId as string;
   const newSettings = req.body as IUserSettings;
 
@@ -111,7 +105,6 @@ export async function updateUserSettings(req: Request, res: Response, next: Next
 
 
 export async function updateUserHomeArea(req: Request, res: Response, next: NextFunction) {
-  // validators
   let userId = req.params.userId as string;
   const newHomeArea = req.body.homeArea as string;
 
@@ -126,7 +119,6 @@ export async function updateUserHomeArea(req: Request, res: Response, next: Next
 }
 
 export async function updateUserZodiac(req: Request, res: Response, next: NextFunction) {
-  // validators
   let userId = req.params.userId as string;
   const newHomeArea = req.body as string;
 

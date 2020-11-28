@@ -13,7 +13,6 @@ export async function getAllAchievements(req: Request, res: Response, next: Next
 }
 
 export async function addAchievment(req: Request, res: Response, next: NextFunction) { 
-  // validator
   const achievment = req.body as IAchievement;
 
   try {
@@ -26,7 +25,6 @@ export async function addAchievment(req: Request, res: Response, next: NextFunct
 }
 
 export async function deleteAchievement(req: Request, res: Response, next: NextFunction) {
-  // validator
   const achievementId = req.params.achievementId as string;
 
   try {
@@ -39,7 +37,6 @@ export async function deleteAchievement(req: Request, res: Response, next: NextF
   }
 
 export async function getAchievement(req: Request, res: Response, next: NextFunction) {
-  // validator
   const achievementId = req.params.achievementId as string;
 
   try {
@@ -52,7 +49,6 @@ export async function getAchievement(req: Request, res: Response, next: NextFunc
 }
 
 export async function updateAchievement(req: Request, res: Response, next: NextFunction) {
-  // validator
   const achievementId = req.params.achievementId as string;
   const achievement = req.body as IAchievement;
 

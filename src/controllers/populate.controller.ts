@@ -6,18 +6,18 @@ export const PopulateRouter: Router = Router();
 
 PopulateRouter.route('/users').get(async (req: Request, res: Response) => {
   User.insertMany([
-    { username: 'Anders',   points: 1, homeArea: "Hallset" },
-    { username: 'Bjarne',   points: 2, homeArea: "Hallset" },
-    { username: 'Charles',  points: 3, homeArea: "Hallset" },
-    { username: 'Dolf',     points: 4, homeArea: "Hallset" },
-    { username: 'Eline',    points: 5, homeArea: "Hallset" },
-    { username: 'Fjodor',   points: 5, homeArea: "Hallset" },
-    { username: 'Gine',     points: 6, homeArea: "Sverresborg" },
-    { username: 'Hanne',    points: 7, homeArea: "Sverresborg" },
-    { username: 'Ine',      points: 8, homeArea: "Sverresborg" },
-    { username: 'Jonas',    points: 9, homeArea: "Jonsvatnet" },
-    { username: 'Karl',     points: 9, homeArea: "Jonsvatnet" },
-    { username: 'Lone',     points: 10, homeArea: "Jonsvatnet" }
+    { username: 'Anders',   points: 1, homeArea: "Hallset", awsId: "1" },
+    { username: 'Bjarne',   points: 2, homeArea: "Hallset", awsId: "2" },
+    { username: 'Charles',  points: 3, homeArea: "Hallset", awsId: "3" },
+    { username: 'Dolf',     points: 4, homeArea: "Hallset", awsId: "4" },
+    { username: 'Eline',    points: 5, homeArea: "Hallset", awsId: "5" },
+    { username: 'Fjodor',   points: 5, homeArea: "Hallset", awsId: "6" },
+    { username: 'Gine',     points: 6, homeArea: "Sverresborg", awsId: "7" },
+    { username: 'Hanne',    points: 7, homeArea: "Sverresborg", awsId: "8" },
+    { username: 'Ine',      points: 8, homeArea: "Sverresborg", awsId: "9" },
+    { username: 'Jonas',    points: 9, homeArea: "Jonsvatnet", awsId: "10" },
+    { username: 'Karl',     points: 9, homeArea: "Jonsvatnet", awsId: "11" },
+    { username: 'Lone',     points: 10, homeArea: "Jonsvatnet", awsId: "12" }
   ])
     .then(() => res.status(200).json('User Collection Populated'))
     .catch((err) => res.status(400).json(err));
